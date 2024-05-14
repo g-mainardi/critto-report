@@ -30,29 +30,22 @@
 
 \tableofcontents
 \chapter{Introduzione}
-Nel vasto panorama della sicurezza informatica, la crittografia svolge un ruolo fondamentale nel garantire la confidenzialità, l'integrità e 
-l'autenticità dei dati scambiati attraverso reti di comunicazione. All'interno di questa disciplina, la teoria dei numeri emerge come un 
-pilastro imprescindibile, fornendo le fondamenta matematiche su cui molte tecniche crittografiche si basano.
+La \textbf{crittografia} è fondamentale per garantire la sicurezza delle comunicazioni digitali, proteggendo la \emph{confidenzialità, l'integrità e l'autenticità} dei dati scambiati. 
+Molti degli algoritmi crittografici più diffusi e robusti si basano su solidi principi matematici derivanti dalla \textbf{teoria dei numeri}. 
 
-Fino alla seconda metà del secolo scorso, si pensava che crittografia e matematica fossero due discipline distinte, 
-addirittura \emph{G. H. Hardy}, noto matematico inglese di inizio '900, nel suo libro \emph{A Mathematician's Apology} (1940) affermava
-che la matematica è una scienza neutra, pura e gentile, che non si schiera e non ha applicazioni dirette. 
+Sebbene in passato crittografia e matematica fossero viste come discipline separate, con \emph{G.H. Hardy} che nel 1940 vedeva la matematica come una scienza neutra, pura e gentile,
+che non si schiera e non ha applicazioni dirette, l'avvento dell'informatica ha dimostrato il loro stretto legame. 
 
-Tuttavia, con l'avvento dell'informatica e della crittografia moderna, la teoria dei numeri ha assunto un ruolo di primaria importanza nello
-sviluppo di algoritmi crittografici sicuri e affidabili. 
-%
-In particolare, algoritmi a chiave pubblica come RSA e DH, hanno dimostrato l'importanza della teoria dei numeri, attraverso l'uso della 
-fattorizzazione in numeri primi e il logaritmo discreto.
-%
-La teoria dei numeri è un ramo della matematica che si occupa dello studio delle proprietà dei numeri interi, in particolare dei numeri primi e delle loro interazioni. 
-Inoltre, tante volte in aritmetica i problemi sono semplici da porre ma difficili da risolvere, qualità che attirò l'attenzione già dai tempi 
-dei greci e che torna utile quando si vuole nascondere un'informazione, come nel caso della crittografia.
-In proposito, un'altra qualità importante è la casualità, la matematica è una scienza imprevedibile, ma sappiamo che la vera casualità è impossibile in aritmetica, citando \emph{Von Neumann}: 
-\begin{quote}
-	Anyone who considers arithmetical methods of producing random digits is, of course, in a state of sin.
-\end{quote}
+La teoria dei numeri, con lo studio delle proprietà dei numeri interi, dei \textbf{numeri primi} e delle loro interazioni, è diventata un pilastro portante per lo sviluppo di sistemi crittografici sicuri.
 
-Nell'ambito di questa relazione, si esplorerà in dettaglio il legame stretto tra la teoria dei numeri e la crittografia, concentrandosi su concetti fondamentali come la fattorizzazione in numeri primi, il logaritmo discreto e le equazioni diofantee. Attraverso questa analisi approfondita, si intende fornire una panoramica esaustiva delle principali applicazioni della teoria dei numeri nel contesto della sicurezza informatica.
+La \textbf{fattorizzazione in numeri primi}, il \textbf{logaritmo discreto} e le \textbf{equazioni diofantee} sono solo alcuni dei concetti chiave della teoria dei numeri che trovano 
+applicazione nella crittografia moderna. Algoritmi rivoluzionari come \emph{RSA} e \emph{Diffie-Hellman}, basilari per la crittografia a chiave pubblica, sfruttano questi principi 
+per garantire elevati livelli di sicurezza. La casualità è una caratteristica fondamentale in crittografia, eppure, come sottolineava \emph{Von Neumann}, 
+``Chiunque consideri metodi aritmetici per produrre cifre casuali è, ovviamente, in stato di peccato'', evidenziando l'impossibilità di ottenere vera casualità in aritmetica. 
+Tuttavia, la teoria dei numeri offre proprietà ideali per nascondere e proteggere informazioni, come la difficoltà nel risolvere alcuni problemi aritmetici nonostante la loro apparente semplicità.
+
+In questa relazione, esploreremo nel dettaglio il legame inscindibile tra crittografia e teoria dei numeri, analizzando le principali applicazioni di quest'ultima nella protezione dei dati digitali. 
+Verranno approfonditi concetti come la fattorizzazione, il logaritmo discreto e le equazioni diofantee, al fine di comprendere appieno il \textbf{ruolo cruciale} svolto dalla matematica nella \textbf{sicurezza informatica}.
 %
 %
 %
@@ -93,11 +86,85 @@ Un numero \(a\) è divisibile per un numero \(b\) se il resto della divisione di
 
 \end{itemize}
 
-%\subsection*{Massimo comune divisore (MCD)}
-%Il massimo comune divisore di due numeri interi \( a \) e \( b \), denotato come \( \mathbb{MCD}(a, b) \), è il più grande numero intero che divide entrambi \( a \) e \( b \) senza lasciare resto.
+\subsection*{Massimo comune divisore (MCD)}
+Il massimo comune divisore di due numeri interi \( a \) e \( b \), denotato come \( \mathbb{MCD}(a, b) \), è il più grande numero intero che divide entrambi \( a \) e \( b \) senza lasciare resto.
 
-%\subsection*{Minimo comune multiplo (mcm)}
-%Il minimo comune multiplo di due numeri interi \( a \) e \( b \), denotato come \( \mathrm{mcm}(a, b) \), è il più piccolo multiplo comune di \( a \) e \( b \).
+\subsection*{Minimo comune multiplo (mcm)}
+Il minimo comune multiplo di due numeri interi \( a \) e \( b \), denotato come \( \mathrm{mcm}(a, b) \), è il più piccolo multiplo comune di \( a \) e \( b \).
+
+\chapter{Aritmetica Modulare}
+
+L'aritmetica modulare è un ramo fondamentale della teoria dei numeri che studia le operazioni aritmetiche sui resti delle divisioni intere. Questo capitolo esplora i concetti chiave dell'aritmetica modulare necessari per comprendere molti algoritmi crittografici moderni.
+
+\section{Congruenza Modulare}
+
+Data una coppia di interi $a$ e $b$, e un intero positivo $n$ detto \textbf{modulo}, diciamo che $a$ è congruo a $b$ modulo $n$, denotato come:
+
+$$a \equiv b \pmod{n}$$
+
+Se esistono interi $k_1$ e $k_2$ tali che:
+
+$$a = k_1n + b$$
+$$b = k_2n + a$$
+
+In altre parole, $a$ e $b$ hanno lo stesso resto quando divisi per $n$. L'insieme di tutti gli interi congrui a $a$ modulo $n$ è chiamato \textbf{classe di resto} o \textbf{classe di congruenza} di $a$ modulo $n$, denotata come $[a]_n$.
+
+La relazione di congruenza gode delle seguenti proprietà:
+
+\begin{enumerate}
+   \item \textbf{Riflessività}: $a \equiv a \pmod{n}$ per ogni $a \in \mathbb{Z}$ e $n > 0$.
+   \item \textbf{Simmetria}: Se $a \equiv b \pmod{n}$, allora $b \equiv a \pmod{n}$.
+   \item \textbf{Transitività}: Se $a \equiv b \pmod{n}$ e $b \equiv c \pmod{n}$, allora $a \equiv c \pmod{n}$.
+\end{enumerate}
+
+\section{Operazioni Aritmetiche Modulari}
+
+Le operazioni aritmetiche fondamentali (addizione, sottrazione, moltiplicazione ed esponenziazione) possono essere definite sull'insieme dei residui modulo $n$, denotato come $\mathbb{Z}_n$. Per $a, b \in \mathbb{Z}_n$:
+
+\begin{enumerate}
+   \item \textbf{Addizione modulare}:
+   $$(a + b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a+b \text{ per } n$$
+   
+   \item \textbf{Sottrazione modulare}:
+   $$(a - b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a-b \text{ per } n$$
+   
+   \item \textbf{Moltiplicazione modulare}:
+   $$(a \cdot b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a \cdot b \text{ per } n$$
+   
+   \item \textbf{Esponenziazione modulare}:
+   $$a^b \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a^b \text{ per } n$$
+\end{enumerate}
+
+Queste operazioni godono delle stesse proprietà dell'aritmetica ordinaria, come la commutativà per l'addizione e la moltiplicazione, l'associatività, la presenza di elementi neutri (0 per l'addizione, 1 per la moltiplicazione) e di inversi (modulo $n$).
+
+\section{Inverso Moltiplicativo Modulare}
+
+Un concetto cruciale è quello di \textbf{elemento invertibile modulo $n$}: un numero $a \in \mathbb{Z}_n$ è invertibile se esiste $b \in \mathbb{Z}_n$ tale che $ab \equiv 1 \pmod{n}$. $b$ è detto l'\textbf{inverso moltiplicativo} di $a$ modulo $n$, denotato come $a^{-1}$.
+
+L'inverso moltiplicativo di $a$ modulo $n$ esiste se e solo se $a$ e $n$ sono coprimi, ovvero il loro massimo comune divisore $\mathbb{MCD}(a,n) = 1$. 
+
+L'algoritmo euclideo esteso permette di calcolare efficacemente $a^{-1}$ modulo $n$.
+
+\section{Aritmetica Modulare sui Numeri Primi}
+
+Le proprietà dell'aritmetica modulare si semplificano notevolmente quando il modulo $n$ è un numero primo $p$. In questo caso, l'insieme $\mathbb{Z}_p$ è un \textbf{campo}, ovvero ogni elemento non nullo è invertibile.
+
+\subsubsection*{Piccolo Teorema di Fermat}
+
+$$a^p \equiv a \pmod{p} \quad \forall a \in \mathbb{Z}_p$$
+
+Questo significa che elevare un numero $a$ alla potenza $p$ modulo $p$ dà come risultato $a$ stesso.
+
+\subsubsection*{Teorema di Eulero}
+
+$$a^{\phi(n)} \equiv 1 \pmod{n} \quad \text{se } \mathbb{MCD}(a,n) = 1$$
+
+Dove $\phi(n)$ è la \textbf{funzione totiente di Eulero}, che conta il numero di interi positivi minori di $n$ e coprimi con $n$.
+
+Queste proprietà hanno implicazioni cruciali per la crittografia modulare su campi finiti, in particolare per la crittografia a chiave pubblica come RSA.
+
+Nei prossimi capitoli, esploreremo ulteriormente i concetti di aritmetica modulare, fattorizzazione in numeri primi, funzione di Eulero e le loro applicazioni agli algoritmi crittografici.
+
 
 \subsection*{Aritmetica Modulare}
 L'aritmetica modulare è un ramo della teoria dei numeri che si occupa delle operazioni aritmetiche su numeri interi all'interno
