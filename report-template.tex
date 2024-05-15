@@ -58,7 +58,8 @@ La teoria dei numeri è lo studio dei numeri interi, e delle loro proprietà. L'
 	\centering
 	..., -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, ...
 \end{quote}
-\section{Definizioni e concetti fondamentali della teoria dei numeri.}
+
+\section{Definizioni}
 
 \subsection*{Numero primo}
 Un numero primo è un numero intero \( p > 1 \) che ha esattamente due divisori: 1 e \(p\) (se stesso).
@@ -66,88 +67,125 @@ Un numero primo è un numero intero \( p > 1 \) che ha esattamente due divisori:
 \subsection*{Numero composto}
 Un numero composto è un numero intero \( n > 1 \) che ha almeno un altro divisore, oltre 1 e \( n \) (se stesso).
 
+\section{Concetti Fondamentali}
 \subsection*{Fattorizzazione}
-La fattorizzazione è il processo di scomposizione di un numero intero \( n \) in un prodotto di numeri primi. Formalmente, data un numero intero \( n \), la fattorizzazione di \( n \) è data dalla rappresentazione \( n = p_1^{e_1} \cdot p_2^{e_2} \cdot \ldots \cdot p_k^{e_k} \), dove \( p_1, p_2, \ldots, p_k \) sono numeri primi distinti e \( e_1, e_2, \ldots, e_k \) sono esponenti positivi.
+La fattorizzazione è il processo di scomposizione di un numero intero \( n \) in un prodotto di numeri primi. 
 
-\subsection*{Concetti di divisibilità e criteri di divisibilità}
+\textbf{Formalmente}: dato un numero intero \( n \), la fattorizzazione di \( n \) è data dalla rappresentazione: 
+
+\[ n = p_1^{e_1} \cdot p_2^{e_2} \cdot \ldots \cdot p_k^{e_k} \]
+
+dove \( p_1, p_2, \ldots, p_k \) sono numeri primi distinti e \( e_1, e_2, \ldots, e_k \) sono esponenti positivi.
+
+\subsection*{Divisibilità e criteri di divisibilità}
 
 Un numero \(a\) è divisibile per un numero \(b\) se il resto della divisione di \(a\) per \(b\) è zero. In altre parole, se esiste un numero intero \(k\) tale che \(a = b \cdot k\), allora \(a\) è divisibile per \(b\).
 
+Alcuni criteri di divisibilità comuni sono:
 \begin{itemize}
-	\item \textbf{Criterio della divisibilità per 2}: Un numero è divisibile per 2 se il suo ultimo cifra è pari, cioè se termina con 0, 2, 4, 6 o 8.
+	\item \textbf{Criterio della divisibilità per 2}: Un numero è divisibile per 2 se la sua ultima cifra è pari, cioè se termina con 0, 2, 4, 6 o 8.
 	
 	\item \textbf{Criterio della divisibilità per 3}: Un numero è divisibile per 3 se la somma delle sue cifre è divisibile per 3.
 	
 	\item \textbf{Criterio della divisibilità per 5}: Un numero è divisibile per 5 se termina con 0 o 5.
 	
-	\item \textbf{Criterio della divisibilità per 7}: Un numero è divisibile per 7 se il numero ottenuto sottraendo il doppio della cifra delle unità dal numero ottenuto togliendo la cifra delle unità è divisibile per 7.
+	\item \textbf{Criterio della divisibilità per 7}: Un numero è divisibile per 7 se il numero ottenuto sottraendo dal doppio della cifra delle unità il numero ottenuto togliendo la cifra delle unità è divisibile per 7.
 
-	\item \textbf{Criterio della divisibilità per 11}: Un numero è divisibile per 11 se la differenza tra la somma delle cifre in posizione pari e la somma delle cifre in posizione dispari è divisibile per 11.
+	\item \textbf{Criterio della divisibilità per 11}: Un numero è divisibile per 11 se la differenza tra la somma delle cifre in posizione pari e la somma delle cifre in posizione dispari è un multiplo di 11(compreso lo 0).
 
 \end{itemize}
 
 \subsection*{Massimo comune divisore (MCD)}
-Il massimo comune divisore di due numeri interi \( a \) e \( b \), denotato come \( \mathbb{MCD}(a, b) \), è il più grande numero intero che divide entrambi \( a \) e \( b \) senza lasciare resto.
+Il massimo comune divisore di due numeri interi \( a \) e \( b \), denotato come 
+\[ \mathbb{MCD}(a, b) \] 
+ed è il più grande numero intero che divide entrambi \( a \) e \( b \) senza lasciare resto.
 
 \subsection*{Minimo comune multiplo (mcm)}
-Il minimo comune multiplo di due numeri interi \( a \) e \( b \), denotato come \( \mathrm{mcm}(a, b) \), è il più piccolo multiplo comune di \( a \) e \( b \).
+Il minimo comune multiplo di due numeri interi \( a \) e \( b \), denotato come 
+\[ \mathrm{mcm}(a, b) \]
+ed è il più piccolo multiplo comune di \( a \) e \( b \).
+
+\subsection*{Numeri coprimi}
+Due numeri interi sono definiti come \textbf{coprimi} (o primi tra loro) se il loro massimo comune divisore (MCD) è uguale a 1. 
+
+\textbf{Formalmente}: dati due numeri interi \(a\) e \(b\), essi sono coprimi se e solo se:
+\[\mathbb{MCD}(a, b) = 1\]
 
 \chapter{Aritmetica Modulare}
 
 L'aritmetica modulare è un ramo fondamentale della teoria dei numeri che studia le operazioni aritmetiche sui resti delle divisioni intere. Questo capitolo esplora i concetti chiave dell'aritmetica modulare necessari per comprendere molti algoritmi crittografici moderni.
 
+\section{Definizioni}
+\subsection*{Modulo} 
+Dato un numero intero $n$ e un modulo $m$, numero intero positivo, il "resto della divisione di $n$ per $m$" è il valore che rimane quando $n$ è diviso per $m$. Questo valore è sempre compreso tra 0 e m-1, inclusi.
+
+Simbolicamente, possiamo esprimere il resto della divisione di n per m come:
+
+\[ n \mod m \]
+
+dove "mod" è l'operatore modulo.
+
+\subsubsection*{Insieme modulo}
+Si sceglie un numero intero positivo \(m\), chiamato modulo, che determina l'insieme dei resti modulo \(m\). 
+Questo insieme è denotato come \(\mathbb{Z}_m\)  , ed è composto da tutti i numeri interi che vanno da 0 a \(m-1\).
+
 \section{Congruenza Modulare}
 
-Data una coppia di interi $a$ e $b$, e un intero positivo $n$ detto \textbf{modulo}, diciamo che $a$ è congruo a $b$ modulo $n$, denotato come:
+Data una coppia di interi $a$ e $b$, e un intero positivo $m$ detto \textbf{modulo}, diciamo che $a$ è congruo a $b$ modulo $m$, denotato come:
 
-$$a \equiv b \pmod{n}$$
+$$a \equiv b \pmod{m}$$
 
 Se esistono interi $k_1$ e $k_2$ tali che:
 
-$$a = k_1n + b$$
-$$b = k_2n + a$$
+$$a = k_1m + b$$
+$$b = k_2m + a$$
 
-In altre parole, $a$ e $b$ hanno lo stesso resto quando divisi per $n$. L'insieme di tutti gli interi congrui a $a$ modulo $n$ è chiamato \textbf{classe di resto} o \textbf{classe di congruenza} di $a$ modulo $n$, denotata come $[a]_n$.
+In altre parole, $a$ e $b$ hanno lo stesso resto quando divisi per $m$. L'insieme di tutti gli interi congrui a $a$ modulo $m$ è chiamato \textbf{classe di resto} o \textbf{classe di congruenza} di $a$ modulo $m$, denotata come $[a]_m$.
 
 La relazione di congruenza gode delle seguenti proprietà:
 
 \begin{enumerate}
-   \item \textbf{Riflessività}: $a \equiv a \pmod{n}$ per ogni $a \in \mathbb{Z}$ e $n > 0$.
-   \item \textbf{Simmetria}: Se $a \equiv b \pmod{n}$, allora $b \equiv a \pmod{n}$.
-   \item \textbf{Transitività}: Se $a \equiv b \pmod{n}$ e $b \equiv c \pmod{n}$, allora $a \equiv c \pmod{n}$.
+   \item \textbf{Riflessività}: $a \equiv a \pmod{m}$ per ogni $a \in \mathbb{Z}$ e $m > 0$.
+   \item \textbf{Simmetria}: Se $a \equiv b \pmod{m}$, allora $b \equiv a \pmod{m}$.
+   \item \textbf{Transitività}: Se $a \equiv b \pmod{m}$ e $b \equiv c \pmod{m}$, allora $a \equiv c \pmod{m}$.
 \end{enumerate}
-
+\newpage
 \section{Operazioni Aritmetiche Modulari}
-
-Le operazioni aritmetiche fondamentali (addizione, sottrazione, moltiplicazione ed esponenziazione) possono essere definite sull'insieme dei residui modulo $n$, denotato come $\mathbb{Z}_n$. Per $a, b \in \mathbb{Z}_n$:
+Le operazioni aritmetiche fondamentali (addizione, sottrazione, moltiplicazione ed esponenziazione) possono essere definite sull'insieme dei residui modulo $m$, denotato come $\mathbb{Z}_m$. Per $a, b \in \mathbb{Z}_m$:
 
 \begin{enumerate}
    \item \textbf{Addizione modulare}:
-   $$(a + b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a+b \text{ per } n$$
+   $$(a + b) \bmod m = r \quad \text{dove } r \in \mathbb{Z}_m \text{ è il resto della divisione di } a+b \text{ per } m$$
    
    \item \textbf{Sottrazione modulare}:
-   $$(a - b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a-b \text{ per } n$$
+   $$(a - b) \bmod m = r \quad \text{dove } r \in \mathbb{Z}_m \text{ è il resto della divisione di } a-b \text{ per } m$$
    
    \item \textbf{Moltiplicazione modulare}:
-   $$(a \cdot b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a \cdot b \text{ per } n$$
+   $$(a \cdot b) \bmod m = r \quad \text{dove } r \in \mathbb{Z}_m \text{ è il resto della divisione di } a \cdot b \text{ per } m$$
    
    \item \textbf{Esponenziazione modulare}:
-   $$a^b \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a^b \text{ per } n$$
+   $$a^b \bmod m = r \quad \text{dove } r \in \mathbb{Z}_m \text{ è il resto della divisione di } a^b \text{ per } m$$
 \end{enumerate}
 
-Queste operazioni godono delle stesse proprietà dell'aritmetica ordinaria, come la commutativà per l'addizione e la moltiplicazione, l'associatività, la presenza di elementi neutri (0 per l'addizione, 1 per la moltiplicazione) e di inversi (modulo $n$).
+Queste operazioni godono delle stesse proprietà dell'aritmetica ordinaria, come la commutativà per l'addizione e la moltiplicazione, l'associatività, la presenza di elementi neutri (0 per l'addizione, 1 per la moltiplicazione) e di inversi (modulo $m$).
 
 \section{Inverso Moltiplicativo Modulare}
 
-Un concetto cruciale è quello di \textbf{elemento invertibile modulo $n$}: un numero $a \in \mathbb{Z}_n$ è invertibile se esiste $b \in \mathbb{Z}_n$ tale che $ab \equiv 1 \pmod{n}$. $b$ è detto l'\textbf{inverso moltiplicativo} di $a$ modulo $n$, denotato come $a^{-1}$.
+Un concetto cruciale è quello di \textbf{elemento invertibile modulo $m$}: 
 
-L'inverso moltiplicativo di $a$ modulo $n$ esiste se e solo se $a$ e $n$ sono coprimi, ovvero il loro massimo comune divisore $\mathbb{MCD}(a,n) = 1$. 
+un numero $a \in \mathbb{Z}_m$ è invertibile se esiste $b \in \mathbb{Z}_m$ tale che $ab \equiv 1 \pmod{m}$. $b$ è detto l'\textbf{inverso moltiplicativo} di $a$ modulo $m$, denotato come $a^{-1}$.
 
-L'algoritmo euclideo esteso permette di calcolare efficacemente $a^{-1}$ modulo $n$.
+\subsection*{Esistenza dell'Inverso Moltiplicativo}
+L'inverso moltiplicativo di $a$ modulo $m$ esiste se e solo se $a$ e $m$ sono coprimi, ovvero il loro massimo comune divisore $\mathbb{MCD}(a,m) = 1$. 
+
+\subsection*{Calcolo dell'Inverso Moltiplicativo}
+L'algoritmo euclideo esteso permette di calcolare efficacemente $a^{-1}$ modulo $m$.
+
+L'algoritmo euclideo esteso: dati due interi $a$ e $b$, trova il loro massimo comune divisore $\mathbb{MCD}(a,b)$ e gli interi $x$ e $y$ tali che $ax + by = \mathbb{MCD}(a,b)$.
 
 \section{Aritmetica Modulare sui Numeri Primi}
 
-Le proprietà dell'aritmetica modulare si semplificano notevolmente quando il modulo $n$ è un numero primo $p$. In questo caso, l'insieme $\mathbb{Z}_p$ è un \textbf{campo}, ovvero ogni elemento non nullo è invertibile.
+Le proprietà dell'aritmetica modulare si semplificano notevolmente quando il modulo $m$ è un numero primo $p$. In questo caso, l'insieme $\mathbb{Z}_p$ è un \textbf{campo}, ovvero ogni elemento non nullo è invertibile.
 
 \subsubsection*{Piccolo Teorema di Fermat}
 
@@ -157,41 +195,18 @@ Questo significa che elevare un numero $a$ alla potenza $p$ modulo $p$ dà come 
 
 \subsubsection*{Teorema di Eulero}
 
-$$a^{\phi(n)} \equiv 1 \pmod{n} \quad \text{se } \mathbb{MCD}(a,n) = 1$$
+$$a^{\phi(m)} \equiv 1 \pmod{m} \quad \text{se } \mathbb{MCD}(a,m) = 1$$
 
-Dove $\phi(n)$ è la \textbf{funzione totiente di Eulero}, che conta il numero di interi positivi minori di $n$ e coprimi con $n$.
+Dove $\phi(m)$ è la \textbf{funzione totiente di Eulero}, che conta il numero di interi positivi minori di $m$ e coprimi con $m$.
 
+\subsubsection*{Quindi}
 Queste proprietà hanno implicazioni cruciali per la crittografia modulare su campi finiti, in particolare per la crittografia a chiave pubblica come RSA.
 
 Nei prossimi capitoli, esploreremo ulteriormente i concetti di aritmetica modulare, fattorizzazione in numeri primi, funzione di Eulero e le loro applicazioni agli algoritmi crittografici.
-
-
-\subsection*{Aritmetica Modulare}
-L'aritmetica modulare è un ramo della teoria dei numeri che si occupa delle operazioni aritmetiche su numeri interi all'interno
-di un insieme di resti modulo un numero fissato, noto come modulo. 
-
-Inoltre, definisce un insieme di numeri interi con operazioni aritmetiche specifiche, che possono essere descritte come segue:
-
-\subsubsection*{Definizione dell'insieme modulo}
-Si sceglie un numero intero positivo \(m\), chiamato modulo, che determina l'insieme dei resti modulo \(m\). 
-Questo insieme è denotato come \(\mathbb{Z}_m\) o \(\mathbb{Z}/m\), ed è composto da tutti i numeri interi che vanno da 0 a \(m-1\).
-
-\subsubsection*{Congruenze}
-Due numeri \( a \) e \( b \) sono congruenti modulo \( m \), denotato come \( a \equiv b \pmod{m} \), se \( a \) e \( b \) hanno lo stesso resto quando divisi per \( m \). Formalmente, \( a \equiv b \pmod{m} \) se e solo se \( m \) divide \( a - b \).
-
-\subsubsection*{Definizione delle operazioni aritmetiche}
-Sulle congruenze modulo \(m\), vengono definite le operazioni aritmetiche che rispettano le proprietà dell'insieme dei resti modulo \(m\):
-\begin{itemize}
-	\item \textbf{Addizione modulare}: \( (a + b) \mod m \)
-	\item \textbf{Sottrazione modulare}: \( (a - b) \mod m \)
-	\item \textbf{Moltiplicazione modulare}: \( (a \cdot b) \mod m \)
-\end{itemize}
-
-\subsubsection*{Proprietà dell'aritmetica modulare}
-L'aritmetica modulare gode di alcune proprietà interessanti, tra cui la chiusura rispetto alle operazioni aritmetiche (cioè il risultato di un'operazione modulare è sempre un numero nell'insieme dei resti modulo \(m\)), l'associatività, la commutatività e la distributività.
 %
 %
 %
+\chapter{Altro}
 \subsection*{Teorema cinese del resto}
 Il teorema cinese del resto afferma che se \( m_1, m_2, \ldots, m_n \) sono interi positivi coprimi a coppie, e \( a_1, a_2, \ldots, a_n \) sono interi arbitrari, allora esiste un unico intero \( x \) che soddisfa il sistema di congruenze \( x \equiv a_1 \pmod{m_1}, x \equiv a_2 \pmod{m_2}, \ldots, x \equiv a_n \pmod{m_n} \).
 
