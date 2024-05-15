@@ -228,42 +228,6 @@ Nei prossimi capitoli, esploreremo ulteriormente i concetti di aritmetica modula
 \chapter{Il Cifrario RSA}
 
 \section{Introduzione}
-Il cifrario RSA, introdotto dai crittografi Ron Rivest, Adi Shamir e Leonard Adleman nel 1977, rappresenta uno dei più importanti e diffusi algoritmi crittografici a chiave pubblica. Esso sfrutta le proprietà della teoria dei numeri e dell'aritmetica modulare per garantire la sicurezza delle comunicazioni.
-
-\section{Principi Fondamentali}
-Il cifrario RSA si basa su due principi fondamentali:
-
-\begin{enumerate}
-    \item La difficoltà computazionale di fattorizzare grandi numeri interi composti, ovvero il prodotto di due numeri primi.
-    \item La facilità relativa di calcolare esponenziali modulari, operazione che sta alla base del processo di cifratura e decifratura.
-\end{enumerate}
-
-\section{Generazione delle Chiavi}
-La generazione delle chiavi nel cifrario RSA segue i seguenti passi:
-
-\begin{enumerate}
-    \item Scegliere due numeri primi distinti $p$ e $q$.
-    \item Calcolare $n = p \cdot q$, dove $n$ è chiamato modulo.
-    \item Calcolare $\phi(n) = (p - 1)(q - 1)$, dove $\phi$ è la funzione totiente di Eulero.
-    \item Scegliere un numero intero $e$ tale che $1 < e < \phi(n)$ e $\operatorname{MCD}(e, \phi(n)) = 1$. Il numero $e$ è chiamato esponente di cifratura.
-    \item Determinare $d$ tale che $d \cdot e \equiv 1 \pmod{\phi(n)}$. Il numero $d$ è chiamato esponente di decifratura.
-\end{enumerate}
-
-La coppia $(e, n)$ rappresenta la chiave pubblica, mentre $d$ è la chiave privata.
-
-\section{Cifratura e Decifratura}
-Sia $m$ il messaggio in chiaro, rappresentato come un numero intero nel range $[0, n - 1]$.
-
-\begin{enumerate}
-    \item La cifratura avviene calcolando $c \equiv m^e \pmod{n}$, dove $c$ è il testo cifrato.
-    \item La decifratura avviene calcolando $m \equiv c^d \pmod{n}$.
-\end{enumerate}
-
-La sicurezza del cifrario RSA risiede nella difficoltà computazionale di fattorizzare $n$ in $p$ e $q$, dato che la conoscenza di $p$ e $q$ permette di calcolare $\phi(n)$ e quindi la chiave privata $d$.
-
-\chapter{Il Cifrario RSA}
-
-\section{Introduzione}
 Il cifrario RSA, introdotto dai crittografi Ron Rivest, Adi Shamir e Leonard Adleman nel 1977, rappresenta uno dei più importanti e diffusi algoritmi crittografici a chiave pubblica. Esso sfrutta le proprietà della teoria dei numeri e dell'aritmetica modulare per garantire la sicurezza delle comunicazioni. A differenza dei sistemi crittografici a chiave simmetrica, in cui la stessa chiave viene utilizzata per cifrare e decifrare i messaggi, il cifrario RSA utilizza due chiavi diverse, una pubblica e una privata.
 
 \section{Principi Fondamentali}
