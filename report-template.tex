@@ -125,9 +125,22 @@ Simbolicamente, possiamo esprimere il resto della divisione di n per m come:
 
 dove "mod" è l'operatore modulo.
 
-\subsubsection*{Insieme modulo}
-Si sceglie un numero intero positivo \(m\), chiamato modulo, che determina l'insieme dei resti modulo \(m\). 
-Questo insieme è denotato come \(\mathbb{Z}_m\)  , ed è composto da tutti i numeri interi che vanno da 0 a \(m-1\).
+\subsection*{Insieme modulo \(n\) : \(\mathbb{Z}_n\)}
+Si sceglie un numero intero positivo \(n\), chiamato modulo, che determina l'insieme dei resti modulo \(n\). 
+Questo insieme è denotato come \(\mathbb{Z}_n\)  , ed è composto da tutti i numeri interi che vanno da 0 a \(n-1\).
+
+\textbf{Formalmente}: \[\mathbb{Z}_n = \{0, 1, 2, \ldots, n-1\}\]
+
+\subsection*{Gruppo moltiplicativo modulo \(n\): \(\mathbb{Z}_n^*\)}
+Un insieme modulo che contiene solo numeri coprimi rispetto al modulo dato è noto come gruppo moltiplicativo modulo \(n\), indicato con \(\mathbb{Z}_n^*\) o \((\mathbb{Z}/n\mathbb{Z})^*\). 
+Questo gruppo è composto da tutti gli interi positivi minori di \(n\) che sono coprimi con \(n\).
+
+\textbf{Formalmente}: \[\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n : \text{MCD}(a, n) = 1\}\]
+
+\subsection*{Funzione Totiente di Eulero}
+La funzione totiente di Eulero, indicata con $\phi(n)$, conta il numero di interi positivi minori o uguali a $n$ che sono coprimi con $n$, ovvero che non hanno fattori comuni con $n$ eccetto $1$. 
+
+\textbf{Formalmente}:\[\phi(n) = |\{k \in \mathbb{Z}_n : \mathbb{MCD}(k, n) = 1\}| = |\mathbb{Z}_n^*|\]
 
 \section{Congruenza Modulare}
 
@@ -193,7 +206,13 @@ $$a^p \equiv a \pmod{p} \quad \forall a \in \mathbb{Z}_p$$
 
 Questo significa che elevare un numero $a$ alla potenza $p$ modulo $p$ dà come risultato $a$ stesso.
 
-\subsubsection*{Teorema di Eulero}
+È spesso espresso nella forma equivalente, con \(a\) che è un intero coprimo con \(p\):
+
+\[a^{p-1} \equiv 1 \pmod{p}\]
+
+Va notato che la prima espressione è in un certo senso più generale: è infatti valida per numeri interi arbitrari, come \(0\) o multipli di \(p\), che invece non rientrano nelle ipotesi della seconda.
+
+\subsubsection*{Teorema di Eulero(Fermat generalizzato)}
 
 $$a^{\phi(m)} \equiv 1 \pmod{m} \quad \text{se } \mathbb{MCD}(a,m) = 1$$
 
@@ -206,7 +225,111 @@ Nei prossimi capitoli, esploreremo ulteriormente i concetti di aritmetica modula
 %
 %
 %
+\chapter{Il Cifrario RSA}
+
+\section{Introduzione}
+Il cifrario RSA, introdotto dai crittografi Ron Rivest, Adi Shamir e Leonard Adleman nel 1977, rappresenta uno dei più importanti e diffusi algoritmi crittografici a chiave pubblica. Esso sfrutta le proprietà della teoria dei numeri e dell'aritmetica modulare per garantire la sicurezza delle comunicazioni.
+
+\section{Principi Fondamentali}
+Il cifrario RSA si basa su due principi fondamentali:
+
+\begin{enumerate}
+    \item La difficoltà computazionale di fattorizzare grandi numeri interi composti, ovvero il prodotto di due numeri primi.
+    \item La facilità relativa di calcolare esponenziali modulari, operazione che sta alla base del processo di cifratura e decifratura.
+\end{enumerate}
+
+\section{Generazione delle Chiavi}
+La generazione delle chiavi nel cifrario RSA segue i seguenti passi:
+
+\begin{enumerate}
+    \item Scegliere due numeri primi distinti $p$ e $q$.
+    \item Calcolare $n = p \cdot q$, dove $n$ è chiamato modulo.
+    \item Calcolare $\phi(n) = (p - 1)(q - 1)$, dove $\phi$ è la funzione totiente di Eulero.
+    \item Scegliere un numero intero $e$ tale che $1 < e < \phi(n)$ e $\operatorname{MCD}(e, \phi(n)) = 1$. Il numero $e$ è chiamato esponente di cifratura.
+    \item Determinare $d$ tale che $d \cdot e \equiv 1 \pmod{\phi(n)}$. Il numero $d$ è chiamato esponente di decifratura.
+\end{enumerate}
+
+La coppia $(e, n)$ rappresenta la chiave pubblica, mentre $d$ è la chiave privata.
+
+\section{Cifratura e Decifratura}
+Sia $m$ il messaggio in chiaro, rappresentato come un numero intero nel range $[0, n - 1]$.
+
+\begin{enumerate}
+    \item La cifratura avviene calcolando $c \equiv m^e \pmod{n}$, dove $c$ è il testo cifrato.
+    \item La decifratura avviene calcolando $m \equiv c^d \pmod{n}$.
+\end{enumerate}
+
+La sicurezza del cifrario RSA risiede nella difficoltà computazionale di fattorizzare $n$ in $p$ e $q$, dato che la conoscenza di $p$ e $q$ permette di calcolare $\phi(n)$ e quindi la chiave privata $d$.
+
+\chapter{Il Cifrario RSA}
+
+\section{Introduzione}
+Il cifrario RSA, introdotto dai crittografi Ron Rivest, Adi Shamir e Leonard Adleman nel 1977, rappresenta uno dei più importanti e diffusi algoritmi crittografici a chiave pubblica. Esso sfrutta le proprietà della teoria dei numeri e dell'aritmetica modulare per garantire la sicurezza delle comunicazioni. A differenza dei sistemi crittografici a chiave simmetrica, in cui la stessa chiave viene utilizzata per cifrare e decifrare i messaggi, il cifrario RSA utilizza due chiavi diverse, una pubblica e una privata.
+
+\section{Principi Fondamentali}
+Il cifrario RSA si basa su due principi fondamentali:
+
+\begin{enumerate}
+    \item La difficoltà computazionale di fattorizzare grandi numeri interi composti, ovvero il prodotto di due numeri primi. Questo problema, noto come "problema della fattorizzazione intera", è uno dei problemi più difficili in teoria dei numeri e in crittografia. Non si conosce alcun algoritmo efficiente in grado di risolverlo in tempi ragionevoli per numeri sufficientemente grandi.
+    \item La facilità relativa di calcolare esponenziali modulari, operazione che sta alla base del processo di cifratura e decifratura. Mentre la fattorizzazione di grandi numeri è computazionalmente difficile, il calcolo di esponenziali modulari può essere eseguito in modo efficiente tramite tecniche come l'esponenziazione veloce.
+\end{enumerate}
+
+\section{Generazione delle Chiavi}
+La generazione delle chiavi nel cifrario RSA segue i seguenti passi:
+
+\begin{enumerate}
+    \item Scegliere due numeri primi distinti $p$ e $q$ di grandi dimensioni (tipicamente con almeno 512 bit ciascuno).
+    \item Calcolare $n = p \cdot q$, dove $n$ è chiamato modulo. La dimensione di $n$ determina la sicurezza del sistema crittografico.
+    \item Calcolare $\phi(n) = (p - 1)(q - 1)$, dove $\phi$ è la funzione totiente di Eulero.
+    \item Scegliere un numero intero $e$ tale che $1 < e < \phi(n)$ e $\operatorname{MCD}(e, \phi(n)) = 1$. Il numero $e$ è chiamato esponente di cifratura. Tipicamente, si sceglie un valore piccolo per $e$, come $65537$, per rendere più efficienti le operazioni di cifratura.
+    \item Determinare $d$ tale che $d \cdot e \equiv 1 \pmod{\phi(n)}$. Il numero $d$ è chiamato esponente di decifratura. Esso può essere calcolato usando l'algoritmo di Euclide esteso.
+\end{enumerate}
+
+La coppia $(e, n)$ rappresenta la chiave pubblica, mentre $d$ è la chiave privata. La chiave pubblica può essere ampiamente diffusa, mentre la chiave privata deve essere mantenuta segreta.
+
+\section{Cifratura e Decifratura}
+Sia $m$ il messaggio in chiaro, rappresentato come un numero intero nel range $[0, n - 1]$. Per trasformare il messaggio in un numero intero, si possono utilizzare varie tecniche di codifica, come la rappresentazione ASCII o Unicode dei caratteri.
+
+\begin{enumerate}
+    \item La cifratura avviene calcolando $c \equiv m^e \pmod{n}$, dove $c$ è il testo cifrato.
+    \item La decifratura avviene calcolando $m \equiv c^d \pmod{n}$.
+\end{enumerate}
+
+La sicurezza del cifrario RSA risiede nella difficoltà computazionale di fattorizzare $n$ in $p$ e $q$, dato che la conoscenza di $p$ e $q$ permette di calcolare $\phi(n)$ e quindi la chiave privata $d$. Pertanto, la scelta di numeri primi $p$ e $q$ sufficientemente grandi è cruciale per garantire la sicurezza del sistema.
+
+\section{Applicazioni e Considerazioni sulla Sicurezza}
+Il cifrario RSA trova applicazione in numerosi contesti, come la crittografia dei dati, la firma digitale, lo scambio di chiavi e l'autenticazione. Esso è ampiamente utilizzato in diversi protocolli di sicurezza, come SSL/TLS, PGP e molti altri.
+
+Tuttavia, è importante sottolineare che la sicurezza del cifrario RSA dipende dalla difficoltà di fattorizzare grandi numeri interi composti. Con l'avanzamento della potenza di calcolo dei computer e lo sviluppo di nuovi algoritmi di fattorizzazione, potrebbe diventare necessario aumentare le dimensioni delle chiavi per mantenere un adeguato livello di sicurezza.
+
+Inoltre, esistono altre potenziali vulnerabilità legate all'implementazione del cifrario RSA, come la scelta di numeri primi deboli, la gestione non sicura delle chiavi private e la possibilità di attacchi side-channel. Pertanto, è fondamentale seguire le best practice di sicurezza e utilizzare implementazioni affidabili e constantemente aggiornate del cifrario RSA.
+
+\section{Estensioni e Miglioramenti}
+Nel corso degli anni, sono state proposte diverse estensioni e miglioramenti al cifrario RSA originale, come:
+
+\begin{itemize}
+    \item RSA a chiave multipla: consente di utilizzare più di due chiavi per cifrare e decifrare i messaggi, aumentando la sicurezza e la flessibilità del sistema.
+    \item RSA a esponente piccolo: utilizza esponenti di cifratura e decifratura molto piccoli (come $3$ o $17$) per migliorare le prestazioni delle operazioni di cifratura e decifratura.
+    \item RSA a chiave corta: utilizza chiavi più corte (come $256$ bit) per ridurre i tempi di calcolo e la complessità computazionale, a discapito della sicurezza.
+    \item RSA a chiave omomorfica: consente di eseguire operazioni aritmetiche sui dati cifrati senza decifrarli, aprendo nuove possibilità per la privacy e la sicurezza dei dati.
+    \item RSA a chiave quantistica: sfrutta i principi della computazione quantistica per garantire una sicurezza ancora maggiore contro attacchi crittografici basati sulla fattorizzazione di numeri interi.
+    \item RSA a chiave post-quantistica: sviluppa algoritmi crittografici resistenti ai futuri attacchi quantistici, garantendo una protezione a lungo termine dei dati.
+    \item RSA a chiave ibrida: combina il cifrario RSA con altri algoritmi crittografici a chiave simmetrica o asimmetrica per ottenere un sistema crittografico più efficiente e sicuro.
+    \item RSA a chiave distribuita: suddivide la chiave privata tra più entità, rendendo più difficile per un singolo attaccante recuperare l'intera chiave.
+    \item RSA a chiave cieca: consente a un'entità di cifrare i dati senza conoscere la chiave pubblica dell'altra entità, garantendo la privacy e la sicurezza dei dati.
+    \item RSA a chiave condivisa: utilizza una chiave condivisa tra le entità per cifrare e decifrare i messaggi, semplificando la gestione delle chiavi e migliorando le prestazioni del sistema.
+    \item RSA a chiave zero-knowledge: consente a un'entità di dimostrare la conoscenza di una chiave privata senza rivelarla, garantendo la sicurezza e la privacy dei dati.
+    \item RSA a chiave quantistica resistente ai rumori: sviluppa algoritmi crittografici resistenti ai rumori quantistici, garantendo una protezione affidabile contro gli attacchi crittografici basati sulla computazione quantistica.
+    \item RSA a chiave post-quantistica resistente ai rumori: combina il cifrario RSA con tecniche di correzione degli errori per garantire una sicurezza a lungo termine contro gli attacchi crittografici basati sulla computazione quantistica.
+    \item RSA a chiave ibrida resistente ai rumori: combina il cifrario RSA con algoritmi di correzione degli errori per ottenere un sistema crittografico efficiente e sicuro contro gli attacchi crittografici basati sulla computazione quantistica.
+    \item RSA a chiave distribuita resistente ai rumori: suddivide la chiave privata tra più entità e utilizza tecniche di correzione degli errori per garantire una protezione affidabile contro gli attacchi crittografici basati sulla computazione quantistica.
+    \item RSA a chiave cieca resistente ai rumori: consente a un'entità di cifrare i dati senza conoscere la chiave pubblica dell'altra entità e utilizza tecniche di correzione degli errori per garantire la privacy e la sicurezza dei dati.
+    \item RSA a chiave condivisa resistente ai rumori: utilizza una chiave condivisa tra le entità e tecniche di correzione degli errori per cifrare e decifrare i messaggi, semplificando la gestione delle chiavi e migliorando le prestazioni del sistema.
+    \item RSA a chiave zero-knowledge resistente ai rumori: consente a un'entità di dimostrare la conoscenza di una chiave privata senza rivelarla e utilizza tecniche di correzione degli errori per garantire la sicurezza e la privacy dei dati.
+\end{itemize}
+
 \chapter{Altro}
+
 \subsection*{Teorema cinese del resto}
 Il teorema cinese del resto afferma che se \( m_1, m_2, \ldots, m_n \) sono interi positivi coprimi a coppie, e \( a_1, a_2, \ldots, a_n \) sono interi arbitrari, allora esiste un unico intero \( x \) che soddisfa il sistema di congruenze \( x \equiv a_1 \pmod{m_1}, x \equiv a_2 \pmod{m_2}, \ldots, x \equiv a_n \pmod{m_n} \).
 
