@@ -13,16 +13,13 @@
 \usepackage[italian]{babel}
 
 \usepackage[italian]{cleveref}
-\bibliographystyle{plain}
-\bibliography{references}
 
-\linespread{1.28} % Imposta l'interlinea di x volte la dimensione del carattere
+\linespread{1.25} % Imposta l'interlinea di x volte la dimensione del carattere
 
 \title{Teoria dei numeri \\ applicata alla Crittografia}
 
 \author{Giosuè Giocondo Mainardi\\ (n.0000933566)}
 \date{\today}
-
 
 \begin{document}
 
@@ -217,25 +214,22 @@ Va notato che la prima espressione è in un certo senso più generale: è infatt
 $$a^{\phi(m)} \equiv 1 \pmod{m} \quad \text{se } \mathbb{MCD}(a,m) = 1$$
 
 Dove $\phi(m)$ è la \textbf{funzione totiente di Eulero}, che conta il numero di interi positivi minori di $m$ e coprimi con $m$.
-
-\subsubsection*{Quindi}
-Queste proprietà hanno implicazioni cruciali per la crittografia modulare su campi finiti, in particolare per la crittografia a chiave pubblica come RSA.
-
-Nei prossimi capitoli, esploreremo ulteriormente i concetti di aritmetica modulare, fattorizzazione in numeri primi, funzione di Eulero e le loro applicazioni agli algoritmi crittografici.
 %
 %
 %
 \chapter{Il Cifrario RSA}
 
 \section{Introduzione}
-Il cifrario RSA, introdotto dai crittografi Ron Rivest, Adi Shamir e Leonard Adleman nel 1977, rappresenta uno dei più importanti e diffusi algoritmi crittografici a chiave pubblica. Esso sfrutta le proprietà della teoria dei numeri e dell'aritmetica modulare per garantire la sicurezza delle comunicazioni. A differenza dei sistemi crittografici a chiave simmetrica, in cui la stessa chiave viene utilizzata per cifrare e decifrare i messaggi, il cifrario RSA utilizza due chiavi diverse, una pubblica e una privata.
+Il cifrario RSA, introdotto dai crittografi Ron Rivest, Adi Shamir e Leonard Adleman nel 1977, rappresenta uno dei più importanti e diffusi algoritmi crittografici a chiave pubblica. 
+Esso sfrutta le proprietà della teoria dei numeri e dell'aritmetica modulare per garantire la sicurezza delle comunicazioni. 
+A differenza dei sistemi crittografici a chiave simmetrica, in cui la stessa chiave viene utilizzata per cifrare e decifrare i messaggi, il cifrario RSA utilizza due chiavi diverse, una pubblica e una privata.
 
 \section{Principi Fondamentali}
 Il cifrario RSA si basa su due principi fondamentali:
 
 \begin{enumerate}
-    \item La difficoltà computazionale di fattorizzare grandi numeri interi composti, ovvero il prodotto di due numeri primi. Questo problema, noto come "problema della fattorizzazione intera", è uno dei problemi più difficili in teoria dei numeri e in crittografia. Non si conosce alcun algoritmo efficiente in grado di risolverlo in tempi ragionevoli per numeri sufficientemente grandi.
-    \item La facilità relativa di calcolare esponenziali modulari, operazione che sta alla base del processo di cifratura e decifratura. Mentre la fattorizzazione di grandi numeri è computazionalmente difficile, il calcolo di esponenziali modulari può essere eseguito in modo efficiente tramite tecniche come l'esponenziazione veloce.
+    \item La \textbf{difficoltà computazionale} di fattorizzare grandi numeri interi composti. Questo problema, noto come "problema della fattorizzazione intera", è uno dei problemi più difficili in teoria dei numeri e in crittografia. Anche se non è stato dimostrato essere NP-hard\footnote[1]{NP-hard significa che un problema è almeno tanto difficile quanto il problema più difficile in NP (nondeterministic polynomial time).}, non si conosce alcun algoritmo efficiente in grado di risolverlo in tempi ragionevoli per numeri sufficientemente grandi.
+    \item La \textbf{facilità relativa di calcolare esponenziali modulari}, operazione che sta alla base del processo di cifratura e decifratura. Infatti, questa può essere eseguita in modo efficiente tramite tecniche come l'esponenziazione veloce.
 \end{enumerate}
 
 \section{Generazione delle Chiavi}
@@ -249,7 +243,21 @@ La generazione delle chiavi nel cifrario RSA segue i seguenti passi:
     \item Determinare $d$ tale che $d \cdot e \equiv 1 \pmod{\phi(n)}$. Il numero $d$ è chiamato esponente di decifratura. Esso può essere calcolato usando l'algoritmo di Euclide esteso.
 \end{enumerate}
 
-La coppia $(e, n)$ rappresenta la chiave pubblica, mentre $d$ è la chiave privata. La chiave pubblica può essere ampiamente diffusa, mentre la chiave privata deve essere mantenuta segreta.
+La coppia $(e, n)$ rappresenta la chiave pubblica, mentre $(d)$ è la chiave privata. La chiave pubblica può essere ampiamente diffusa, mentre la chiave privata deve essere mantenuta segreta.
+
+\subsection*{Specifiche Attuali della Lunghezza delle Chiavi RSA}
+
+Ecco le specifiche attuali per la lunghezza delle chiavi RSA:
+
+\begin{itemize}
+    \item \textbf{1024 bit}: Considerata insicura per la maggior parte degli scopi. Non è più raccomandata per l'uso.
+    \item \textbf{2048 bit}: Attualmente considerata sicura per la maggior parte degli scopi. Raccomandata per molti utilizzi.
+    \item \textbf{3072 bit}: Fornisce un margine di sicurezza maggiore, utilizzata per esigenze di sicurezza più elevate.
+    \item \textbf{4096 bit}: Utilizzata per esigenze di sicurezza molto elevate, anche se comporta operazioni più lente.
+\end{itemize}
+
+Per la sicurezza a lungo termine, si raccomanda generalmente di utilizzare chiavi di almeno 2048 bit. Per dati altamente sensibili, è consigliabile utilizzare chiavi da 3072 bit o 4096 bit. Queste raccomandazioni sono in linea con le linee guida fornite da organizzazioni come il NIST (National Institute of Standards and Technology) e da vari enti di standardizzazione della sicurezza informatica.
+\cite{nist}
 
 \section{Cifratura e Decifratura}
 Sia $m$ il messaggio in chiaro, rappresentato come un numero intero nel range $[0, n - 1]$. Per trasformare il messaggio in un numero intero, si possono utilizzare varie tecniche di codifica, come la rappresentazione ASCII o Unicode dei caratteri.
@@ -268,8 +276,100 @@ Tuttavia, è importante sottolineare che la sicurezza del cifrario RSA dipende d
 
 Inoltre, esistono altre potenziali vulnerabilità legate all'implementazione del cifrario RSA, come la scelta di numeri primi deboli, la gestione non sicura delle chiavi private e la possibilità di attacchi side-channel. Pertanto, è fondamentale seguire le best practice di sicurezza e utilizzare implementazioni affidabili e constantemente aggiornate del cifrario RSA.
 
+\section{RSA a Chiave Multipla}
+
+Il cifrario RSA a chiave multipla è un'estensione dell'algoritmo RSA standard progettata per consentire la cifratura di messaggi destinati a più destinatari utilizzando una singola chiave privata. In questa sezione, esploreremo le principali differenze e aggiunte rispetto a RSA standard.
+
+\subsection{Generazione delle Chiavi}
+
+Nel RSA a chiave multipla, vengono generate più coppie di chiavi pubbliche/ private, una per ogni destinatario. Sia \( (N_i, e_i, d_i) \) la \( i \)-esima coppia di chiavi generate, dove \( N_i \) è il modulo, \( e_i \) è l'esponente pubblico e \( d_i \) è l'esponente privato. Questo richiede una procedura di generazione delle chiavi più complessa rispetto alla generazione di una singola coppia di chiavi.
+
+\subsection{Cifratura dei Messaggi}
+
+Il mittente utilizza la propria chiave privata \( d_S \) per cifrare il messaggio \( M \). Il messaggio cifrato \( C \) viene quindi cifrato separatamente utilizzando la chiave pubblica \( (N_i, e_i) \) di ciascun destinatario \( i \), generando \( C_i \). Formalmente:
+
+\[C_i = (C^{e_i} \mod N_i)\]
+
+\subsection{Decifratura dei Messaggi}
+
+Ogni destinatario utilizza la propria chiave privata \( d_i \) per decifrare il messaggio cifrato \( C_i \) utilizzando la formula:
+\[M = (C_i^{d_i} \mod N_i)\]
+
+In questo modo, solo il destinatario corretto sarà in grado di decifrare il messaggio.
+
+\subsection{Vantaggi e Considerazioni}
+
+L'RSA a chiave multipla offre una maggiore flessibilità e sicurezza rispetto alla cifratura RSA standard, consentendo di inviare messaggi cifrati a più destinatari utilizzando una sola chiave privata. Tuttavia, richiede una gestione più complessa delle chiavi e può essere soggetto a sfide legate alla sicurezza, come la corretta autenticazione dei destinatari.
+
+In conclusione, l'RSA a chiave multipla è una potente estensione dell'algoritmo RSA standard, che offre un'opzione efficace per la cifratura di dati destinati a più destinatari in un contesto crittografico.
+
 \section{Estensioni e Miglioramenti}
 Nel corso degli anni, sono state proposte diverse estensioni e miglioramenti al cifrario RSA originale, come:
+
+\subsection{RSA a Chiave Multipla}
+Il sistema RSA a chiave multipla consente di utilizzare più di due chiavi per cifrare e decifrare i messaggi, aumentando la sicurezza e la flessibilità del sistema. In questo schema, viene generato un insieme di $t$ chiavi pubbliche $(e_1, n_1), (e_2, n_2), \ldots, (e_t, n_t)$ e un'unica chiave privata $d$ condivisa.
+
+La cifratura avviene calcolando:
+\[c \equiv m^{e_1 e_2 \cdots e_t} \pmod{n_1 n_2 \cdots n_t}\]
+
+Mentre la decifratura si ottiene calcolando:
+\[m \equiv c^d \pmod{n_1 n_2 \cdots n_t}\]
+
+Questo schema offre una maggiore sicurezza rispetto al RSA tradizionale, in quanto un potenziale attaccante dovrebbe fattorizzare il prodotto di tutti i moduli $n_i$ per compromettere il sistema. Inoltre, consente una maggiore flessibilità nella gestione delle chiavi pubbliche.
+
+\subsection{RSA a Esponente Piccolo}
+Il RSA a esponente piccolo è una variante che utilizza esponenti di cifratura e decifratura molto piccoli, come $3$ o $17$, al fine di migliorare le prestazioni delle operazioni di cifratura e decifratura. Questo approccio sfrutta la proprietà:
+\[m^{e_1 e_2} \equiv (m^{e_1})^{e_2} \pmod{n}\]
+
+Pertanto, la cifratura avviene calcolando $c \equiv m^{e_1} \pmod{n}$, mentre la decifratura richiede due passi:
+\begin{align*}
+x &\equiv c^{e_2} \pmod{n} \\
+m &\equiv x^d \pmod{n}
+\end{align*}
+
+Sebbene l'utilizzo di esponenti piccoli riduca il costo computazionale delle operazioni, esistono potenziali vulnerabilità legate alla distribuzione dei messaggi cifrati e alla possibilità di attacchi a testo cifrato scelto.
+
+\subsection{RSA con Funzione di Padding}
+Le funzioni di padding vengono utilizzate per rendere il cifrario RSA più sicuro e compatibile con vari standard crittografici. Esse consistono nell'aggiungere bit ridondanti al messaggio prima della cifratura, al fine di prevenire attacchi come quello a testo cifrato scelto.
+
+Uno schema di padding comune è OAEP (Optimal Asymmetric Encryption Padding), che utilizza una funzione di hash crittografica e una funzione di mascheramento per aumentare la sicurezza del messaggio cifrato. Un altro schema diffuso è PKCS\#1 v1.5, che aggiunge bit casuali e una struttura specifica al messaggio.
+
+L'utilizzo di funzioni di padding appropriate è fondamentale per garantire la sicurezza del cifrario RSA e prevenire potenziali vulnerabilità legate all'input dei messaggi.
+
+\subsection{RSA con Cifratura a Blocchi}
+Poiché l'operazione di cifratura del RSA può essere applicata solo a messaggi di dimensione inferiore al modulo $n$, è necessario suddividere i messaggi più lunghi in blocchi prima della cifratura. Ogni blocco viene quindi cifrato separatamente utilizzando la chiave pubblica.
+
+Esistono diverse modalità di cifratura a blocchi, come ECB (Electronic Code Book), CBC (Cipher Block Chaining), CFB (Cipher Feedback) e OFB (Output Feedback). Queste modalità introducono una dipendenza tra i blocchi cifrati, al fine di prevenire potenziali vulnerabilità legate alla cifratura a blocchi.
+
+La scelta della modalità di cifratura a blocchi dipende dalle esigenze di sicurezza e dalle caratteristiche del canale di comunicazione. Ad esempio, la modalità CBC offre una maggiore sicurezza rispetto a ECB, ma richiede un vettore di inizializzazione casuale.
+
+\subsection{RSA con Firma Digitale}
+Il cifrario RSA può essere utilizzato non solo per la cifratura dei messaggi, ma anche per la generazione di firme digitali. Questo processo consente di garantire l'autenticità e l'integrità dei dati trasmessi.
+
+La firma digitale di un messaggio $m$ viene calcolata come:
+\[s \equiv m^d \pmod{n}\]
+
+Dove $d$ è la chiave privata del firmatario. La verifica della firma avviene calcolando:
+\[m \equiv s^e \pmod{n}\]
+
+E confrontando il risultato con il messaggio originale. Esistono vari schemi di firma digitale basati su RSA, come PKCS\#1 v1.5 e PSS (Probabilistic Signature Scheme), che introducono ulteriori precauzioni per prevenire potenziali attacchi.
+
+\subsection{RSA con Crittografia Ibrida}
+La crittografia ibrida combina il cifrario RSA con algoritmi di crittografia simmetrica, sfruttando i punti di forza di entrambi i sistemi. In questo schema, RSA viene utilizzato per cifrare una chiave simmetrica casuale, che a sua volta viene impiegata per cifrare il messaggio vero e proprio con un algoritmo simmetrico più efficiente.
+
+Questo approccio offre diversi vantaggi, come una maggiore efficienza nelle operazioni di cifratura e decifratura dei dati, una migliore gestione delle chiavi e una maggiore sicurezza complessiva del sistema. 
+Esempi di schemi ibridi includono PGP (Pretty Good Privacy) e S/MIME (Secure/Multipurpose Internet Mail Extensions).
+
+\subsection{Ottimizzazioni e Implementazioni Efficienti}
+Per migliorare le prestazioni del cifrario RSA, sono state sviluppate diverse tecniche di ottimizzazione e implementazioni efficienti. Queste includono:
+
+\begin{itemize}
+   \item Algoritmi di esponenziazione veloce: consentono di calcolare esponenziali modulari in modo più efficiente, riducendo il numero di moltiplicazioni richieste.
+   \item Ottimizzazioni hardware e software: sfruttano le caratteristiche dei processori e dei sistemi operativi per accelerare le operazioni aritmetiche modulari.
+   \item Librerie e implementazioni open source: forniscono implementazioni sicure e ottimizzate del cifrario RSA, spesso integrate in framework crittografici più ampi.
+\end{itemize}
+
+Queste ottimizzazioni sono fondamentali per rendere il cifrario RSA praticabile in applicazioni real-world che richiedono prestazioni elevate e una gestione efficiente delle risorse computazionali.
 
 \begin{itemize}
     \item RSA a chiave multipla: consente di utilizzare più di due chiavi per cifrare e decifrare i messaggi, aumentando la sicurezza e la flessibilità del sistema.
@@ -352,25 +452,8 @@ Permalink: \url{https://github.com/AlchemistSimulator/Alchemist/blob/d8a1799027d
 
 Permalink: \url{https://github.com/AlchemistSimulator/Alchemist/blob/d8a1799027d7d685569e15316a32e6394632ce71/alchemist-incarnation-protelis/src/main/java/it/unibo/alchemist/protelis/AlchemistExecutionContext.java#L141-L143}
 
-\chapter{Capitolo finale}
-
-In quest'ultimo capitolo si tirano le somme del lavoro svolto e si delineano eventuali sviluppi
-futuri.
-
-\section{Sezione di commenti finali}
-
-\textbf{È richiesta una sezione per ciascun membro del gruppo, obbligatoriamente}.
-
-\appendix
-\chapter{Capitolo appendice 1}
-
-Contenuto.
-
-\chapter{Capitolo appendice 2}
-
-Contenuto.
-
-\bibliographystyle{alpha}
+\nocite{*}
+\bibliographystyle{plain}
 \bibliography{report-template}
 
 \end{document}
