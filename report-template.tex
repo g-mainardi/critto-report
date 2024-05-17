@@ -61,6 +61,21 @@ La teoria dei numeri è lo studio dei numeri interi, e delle loro proprietà. L'
 \subsection*{Numero primo}
 Un numero primo è un numero intero \( p > 1 \) che ha esattamente due divisori: 1 e \(p\) (se stesso).
 
+Vediamo degli esempi: ogni numero a sinistra nella seguente tabella è primo. Questo schema non continua indefinitamente, ma qualcosa di simile funziona.
+
+\[\begin{array}{ll}
+3 & = 2 + 1 \\
+7 & = 2 \cdot 3 + 1 \\
+31 & = 2 \cdot 3 \cdot 5 + 1 \\
+211 & = 2 \cdot 3 \cdot 5 \cdot 7 + 1 \\
+2311 & = 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 + 1 \\
+\end{array}\]
+
+Occorre però ricordare che Euclide ha dimostrato che esistono infiniti numeri primi. \cite{stein2008}
+
+Inoltre, si fa notare che il più grande numero primo conosciuto\footnote{Largest Know Prime Number:7 dicembre 2018 da Patrick Laroche} è \[2^{82,589,933} - 1\]
+e ha quasi 25 milioni di cifre.
+
 \subsection*{Numero composto}
 Un numero composto è un numero intero \( n > 1 \) che ha almeno un altro divisore, oltre 1 e \( n \) (se stesso).
 
@@ -112,13 +127,11 @@ Due numeri interi sono definiti come \textbf{coprimi} (o primi tra loro) se il l
 
 L'aritmetica modulare è un ramo fondamentale della teoria dei numeri che studia le operazioni aritmetiche sui resti delle divisioni intere. Questo capitolo esplora i concetti chiave dell'aritmetica modulare necessari per comprendere molti algoritmi crittografici moderni.
 
-\section{Definizioni}
-\subsection*{Modulo} 
-Dato un numero intero $n$ e un modulo $m$, numero intero positivo, il "resto della divisione di $n$ per $m$" è il valore che rimane quando $n$ è diviso per $m$. Questo valore è sempre compreso tra 0 e m-1, inclusi.
+\section{Definizioni} \subsection*{Modulo} Dato un numero intero $a$ e un modulo $n$, numero intero positivo, il "resto della divisione di $a$ per $n$" è il valore che rimane quando $a$ è diviso per $n$. Questo valore è sempre compreso tra 0 e $n-1$, inclusi.
 
-Simbolicamente, possiamo esprimere il resto della divisione di n per m come:
+Simbolicamente, possiamo esprimere il resto della divisione di $a$ per $n$ come:
 
-\[ n \mod m \]
+\[ a \mod n \]
 
 dove "mod" è l'operatore modulo.
 
@@ -138,58 +151,61 @@ Questo gruppo è composto da tutti gli interi positivi minori di \(n\) che sono 
 La funzione totiente di Eulero, indicata con $\phi(n)$, conta il numero di interi positivi minori o uguali a $n$ che sono coprimi con $n$, ovvero che non hanno fattori comuni con $n$ eccetto $1$. 
 
 \textbf{Formalmente}:\[\phi(n) = |\{k \in \mathbb{Z}_n : \mathbb{MCD}(k, n) = 1\}| = |\mathbb{Z}_n^*|\]
-
 \section{Congruenza Modulare}
 
-Data una coppia di interi $a$ e $b$, e un intero positivo $m$ detto \textbf{modulo}, diciamo che $a$ è congruo a $b$ modulo $m$, denotato come:
+Data una coppia di interi $a$ e $b$, e un intero positivo $n$ detto \textbf{modulo}, diciamo che $a$ è congruo a $b$ modulo $n$, denotato come:
 
-$$a \equiv b \pmod{m}$$
+$$a \equiv b \pmod{n}$$
 
 Se esistono interi $k_1$ e $k_2$ tali che:
 
-$$a = k_1m + b$$
-$$b = k_2m + a$$
+$$a = k_1n + b$$
+$$b = k_2n + a$$
 
-In altre parole, $a$ e $b$ hanno lo stesso resto quando divisi per $m$. L'insieme di tutti gli interi congrui a $a$ modulo $m$ è chiamato \textbf{classe di resto} o \textbf{classe di congruenza} di $a$ modulo $m$, denotata come $[a]_m$.
+In altre parole, $a$ e $b$ hanno lo stesso resto quando divisi per $n$. 
 
+\subsection*{Classe di Resto}
+L'insieme di tutti gli interi congrui a $a$ modulo $n$ è chiamato \textbf{classe di resto} o \textbf{classe di congruenza} di $a$ modulo $n$, denotata come \[[a]_n\]
+
+\subsection*{Proprietà}
 La relazione di congruenza gode delle seguenti proprietà:
 
 \begin{enumerate}
-   \item \textbf{Riflessività}: $a \equiv a \pmod{m}$ per ogni $a \in \mathbb{Z}$ e $m > 0$.
-   \item \textbf{Simmetria}: Se $a \equiv b \pmod{m}$, allora $b \equiv a \pmod{m}$.
-   \item \textbf{Transitività}: Se $a \equiv b \pmod{m}$ e $b \equiv c \pmod{m}$, allora $a \equiv c \pmod{m}$.
+    \item \textbf{Riflessività}: $a \equiv a \pmod{n}$ per ogni $a \in \mathbb{Z}$ e $n > 0$.
+    \item \textbf{Simmetria}: Se $a \equiv b \pmod{n}$, allora $b \equiv a \pmod{n}$.
+    \item \textbf{Transitività}: Se $a \equiv b \pmod{n}$ e $b \equiv c \pmod{n}$, allora $a \equiv c \pmod{n}$.
 \end{enumerate}
 \newpage
 \section{Operazioni Aritmetiche Modulari}
-Le operazioni aritmetiche fondamentali (addizione, sottrazione, moltiplicazione ed esponenziazione) possono essere definite sull'insieme dei residui modulo $m$, denotato come $\mathbb{Z}_m$. Per $a, b \in \mathbb{Z}_m$:
+Le operazioni aritmetiche fondamentali (addizione, sottrazione, moltiplicazione ed esponenziazione) possono essere definite sull'insieme dei residui modulo $n$, denotato come $\mathbb{Z}_n$. Per $a, b \in \mathbb{Z}_n$:
 
 \begin{enumerate}
-   \item \textbf{Addizione modulare}:
-   $$(a + b) \bmod m = r \quad \text{dove } r \in \mathbb{Z}_m \text{ è il resto della divisione di } a+b \text{ per } m$$
-   
-   \item \textbf{Sottrazione modulare}:
-   $$(a - b) \bmod m = r \quad \text{dove } r \in \mathbb{Z}_m \text{ è il resto della divisione di } a-b \text{ per } m$$
-   
-   \item \textbf{Moltiplicazione modulare}:
-   $$(a \cdot b) \bmod m = r \quad \text{dove } r \in \mathbb{Z}_m \text{ è il resto della divisione di } a \cdot b \text{ per } m$$
-   
-   \item \textbf{Esponenziazione modulare}:
-   $$a^b \bmod m = r \quad \text{dove } r \in \mathbb{Z}_m \text{ è il resto della divisione di } a^b \text{ per } m$$
+    \item \textbf{Addizione modulare}:
+    $$(a + b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a+b \text{ per } n$$
+    
+    \item \textbf{Sottrazione modulare}:
+    $$(a - b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a-b \text{ per } n$$
+    
+    \item \textbf{Moltiplicazione modulare}:
+    $$(a \cdot b) \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a \cdot b \text{ per } n$$
+    
+    \item \textbf{Esponenziazione modulare}:
+    $$a^b \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a^b \text{ per } n$$
 \end{enumerate}
 
-Queste operazioni godono delle stesse proprietà dell'aritmetica ordinaria, come la commutativà per l'addizione e la moltiplicazione, l'associatività, la presenza di elementi neutri (0 per l'addizione, 1 per la moltiplicazione) e di inversi (modulo $m$).
+Queste operazioni godono delle stesse proprietà dell'aritmetica ordinaria, come la commutativà per l'addizione e la moltiplicazione, l'associatività, la presenza di elementi neutri (0 per l'addizione, 1 per la moltiplicazione) e di inversi (modulo $n$).
 
 \section{Inverso Moltiplicativo Modulare}
 
-Un concetto cruciale è quello di \textbf{elemento invertibile modulo $m$}: 
+Un concetto cruciale è quello di \textbf{elemento invertibile modulo $n$}: 
 
-un numero $a \in \mathbb{Z}_m$ è invertibile se esiste $b \in \mathbb{Z}_m$ tale che $ab \equiv 1 \pmod{m}$. $b$ è detto l'\textbf{inverso moltiplicativo} di $a$ modulo $m$, denotato come $a^{-1}$.
+un numero $a \in \mathbb{Z}_n$ è invertibile se esiste $b \in \mathbb{Z}_n$ tale che $ab \equiv 1 \pmod{n}$. $b$ è detto l'\textbf{inverso moltiplicativo} di $a$ modulo $n$, denotato come $a^{-1}$.
 
 \subsection*{Esistenza dell'Inverso Moltiplicativo}
-L'inverso moltiplicativo di $a$ modulo $m$ esiste se e solo se $a$ e $m$ sono coprimi, ovvero il loro massimo comune divisore $\mathbb{MCD}(a,m) = 1$. 
+L'inverso moltiplicativo di $a$ modulo $n$ esiste se e solo se $a$ e $n$ sono coprimi, ovvero il loro massimo comune divisore $\mathbb{MCD}(a,n) = 1$. 
 
 \subsection*{Calcolo dell'Inverso Moltiplicativo}
-L'algoritmo euclideo esteso permette di calcolare efficacemente $a^{-1}$ modulo $m$.
+L'algoritmo euclideo esteso permette di calcolare efficacemente $a^{-1}$ modulo $n$.
 
 L'algoritmo euclideo esteso: dati due interi $a$ e $b$, trova il loro massimo comune divisore $\mathbb{MCD}(a,b)$ e gli interi $x$ e $y$ tali che $ax + by = \mathbb{MCD}(a,b)$.
 
@@ -199,21 +215,59 @@ Le proprietà dell'aritmetica modulare si semplificano notevolmente quando il mo
 
 \subsubsection*{Piccolo Teorema di Fermat}
 
-$$a^p \equiv a \pmod{p} \quad \forall a \in \mathbb{Z}_p$$
+$$a^p \equiv a \pmod{p} \quad \forall a \in \mathbb{Z}$$
 
 Questo significa che elevare un numero $a$ alla potenza $p$ modulo $p$ dà come risultato $a$ stesso.
 
 È spesso espresso nella forma equivalente, con \(a\) che è un intero coprimo con \(p\):
 
-\[a^{p-1} \equiv 1 \pmod{p}\]
+\[a^{p-1} \equiv 1 \pmod{p}\quad,\quad con\quad \mathbb{MCD}(a,p)=1\]
 
 Va notato che la prima espressione è in un certo senso più generale: è infatti valida per numeri interi arbitrari, come \(0\) o multipli di \(p\), che invece non rientrano nelle ipotesi della seconda.
 
-\subsubsection*{Teorema di Eulero(Fermat generalizzato)}
+\subsubsection*{Teorema di Eulero (Fermat generalizzato)}
 
-$$a^{\phi(m)} \equiv 1 \pmod{m} \quad \text{se } \mathbb{MCD}(a,m) = 1$$
+$$a^{\phi(n)} \equiv 1 \pmod{n} \quad \text{se } \mathbb{MCD}(a,n) = 1$$
 
-Dove $\phi(m)$ è la \textbf{funzione totiente di Eulero}, che conta il numero di interi positivi minori di $m$ e coprimi con $m$.
+Dove $\phi(n)$ è la \textbf{funzione totiente di Eulero}, che conta il numero di interi positivi minori di $n$ e coprimi con $n$.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
 %
 %
 %
@@ -256,8 +310,8 @@ Ecco le specifiche attuali per la lunghezza delle chiavi RSA:
     \item \textbf{4096 bit}: Utilizzata per esigenze di sicurezza molto elevate, anche se comporta operazioni più lente.
 \end{itemize}
 
-Per la sicurezza a lungo termine, si raccomanda generalmente di utilizzare chiavi di almeno 2048 bit. Per dati altamente sensibili, è consigliabile utilizzare chiavi da 3072 bit o 4096 bit. Queste raccomandazioni sono in linea con le linee guida fornite da organizzazioni come il NIST (National Institute of Standards and Technology) e da vari enti di standardizzazione della sicurezza informatica.
-\cite{nist}
+Per la sicurezza a lungo termine, si raccomanda generalmente di utilizzare chiavi di almeno 2048 bit. Per dati altamente sensibili, è consigliabile utilizzare chiavi da 3072 bit o 4096 bit. 
+Queste raccomandazioni sono in linea con le linee guida fornite da organizzazioni come il NIST (National Institute of Standards and Technology)\cite{nist} e da vari enti di standardizzazione della sicurezza informatica.
 
 \section{Cifratura e Decifratura}
 Sia $m$ il messaggio in chiaro, rappresentato come un numero intero nel range $[0, n - 1]$. Per trasformare il messaggio in un numero intero, si possono utilizzare varie tecniche di codifica, come la rappresentazione ASCII o Unicode dei caratteri.
