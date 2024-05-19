@@ -524,16 +524,10 @@ dove \( e \) è l'elemento neutro e \( g^n = e \). La cardinalità (o ordine) de
 %
 \section{Definizione Formale}
 Sia $G$ un gruppo ciclico finito di ordine $n$, con generatore $g$. Per ogni elemento $h \in G$, esiste un unico intero $x$, con $0 \leq x < n$, tale che:
-
-\[
-h = g^x
-\]
+\[h = g^x\]
 
 L'intero $x$ è chiamato logaritmo discreto di $h$ rispetto alla base $g$ nel gruppo $G$, e si indica con:
-
-\[
-x = \log_g h
-\]
+\[x = \log_g h\]
 
 Il problema del logaritmo discreto consiste nel calcolare $x$ dati $g$, $h$ e $G$. In altre parole, dato un elemento $h$ del gruppo e la base $g$, si cerca di trovare l'esponente segreto $x$ tale che $g^x = h$.
 
@@ -572,68 +566,162 @@ La sicurezza dei sistemi crittografici basati sul problema del logaritmo discret
 Inoltre, è importante considerare potenziali vulnerabilità legate all'implementazione degli algoritmi crittografici, come la gestione delle chiavi segrete, la generazione di numeri casuali sicuri e la protezione contro attacchi side-channel.
 
 Infine, con l'avanzamento della potenza di calcolo dei computer e lo sviluppo di nuovi algoritmi di calcolo del logaritmo discreto, potrebbe essere necessario aumentare le dimensioni dei parametri crittografici per mantenere un adeguato livello di sicurezza nel lungo periodo.
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+\chapter{Firma Digitale}
 
+\section{Introduzione}
+La firma digitale è un meccanismo crittografico fondamentale per garantire l'autenticità, l'integrità e la non-ripudiabilità dei dati digitali. Essa svolge un ruolo analogo a quello della firma autografa nei documenti cartacei, ma sfrutta tecniche di crittografia a chiave pubblica per offrire maggiore sicurezza e verificabilità. I principali algoritmi utilizzati per la firma digitale sono il Digital Signature Algorithm (DSA) e il cifrario RSA.
+\section{Funzioni Hash}
+Le funzioni hash sono essenziali per il funzionamento delle firme digitali.
 
+In questa sezione, si introducono i concetti chiave delle funzioni hash necessari per comprendere come esse siano utilizzate nella firma digitale.
 
+\subsection*{Definizione di Funzione Hash}
 
+Una funzione hash è una funzione matematica che mappa un input di lunghezza arbitraria a un output di lunghezza fissa, chiamato \textit{digest} o \textit{hash value}.
 
-\chapter{Altro}
+\textbf{Formalmente}: una funzione hash $H$ può essere definita come segue:
+\[H: \{0,1\}^* \rightarrow \{0,1\}^n\]
 
-\subsection*{Teorema cinese del resto}
-Il teorema cinese del resto afferma che se \( m_1, m_2, \ldots, m_n \) sono interi positivi coprimi a coppie, e \( a_1, a_2, \ldots, a_n \) sono interi arbitrari, allora esiste un unico intero \( x \) che soddisfa il sistema di congruenze \( x \equiv a_1 \pmod{m_1}, x \equiv a_2 \pmod{m_2}, \ldots, x \equiv a_n \pmod{m_n} \).
+dove $\{0,1\}^*$ rappresenta l'insieme di tutte le stringhe binarie di lunghezza arbitraria e $\{0,1\}^n$ rappresenta l'insieme delle stringhe binarie di lunghezza fissa $n$.
 
-\subsection*{Logaritmo discreto}
-Il logaritmo discreto è definito come segue: date una base \( g \) e un modulo \( p \), il logaritmo discreto di \( b \) rispetto a \( g \) modulo \( p \), denotato come \( \log_g(b) \), è l'intero \( x \) tale che \( g^x \equiv b \pmod{p} \).
+\subsection*{Proprietà Fondamentali}
 
-\subsection*{Curve ellittiche}
-Le curve ellittiche sono insiemi di punti \( (x, y) \) che soddisfano un'equazione di forma cubica: \( y^2 = x^3 + ax + b \), dove \( a \) e \( b \) sono costanti. Le curve ellittiche hanno molte applicazioni in crittografia grazie alla loro proprietà di essere non solo additive ma anche moltiplicative.
+Per essere utilizzata nella firma digitale, una funzione hash deve possedere le seguenti proprietà fondamentali:
 
-\section{Sezione 1 Capitolo 2}
+\begin{itemize}
+    \item \textbf{Resistenza alla preimmagine}: Dato un valore hash $h$, dovrebbe essere computazionalmente infeasible trovare un input $x$ tale che $H(x) = h$.
+    \item \textbf{Resistenza alla seconda preimmagine}: Dato un input $x_1$, dovrebbe essere computazionalmente infeasible trovare un altro input $x_2$ tale che $x_1 \neq x_2$ e $H(x_1) = H(x_2)$.
+    \item \textbf{Resistenza alle collisioni}: Dovrebbe essere computazionalmente infeasible trovare due input distinti $x_1$ e $x_2$ tali che $H(x_1) = H(x_2)$.
+\end{itemize}
 
-Contenuto.
+\subsection*{Funzioni Hash Crittografiche Comuni}
+Le Funzioni Hash Crittografiche sono un sottoinsieme specifico delle funzioni hash, progettate e analizzate per soddisfare determinati requisiti di sicurezza crittografica. 
+Diverse funzioni hash crittografiche sono ampiamente utilizzate. Tra le più comuni troviamo:
+\begin{itemize}
+    \item \textbf{MD5 (Message Digest Algorithm 5)}: una delle funzioni hash più conosciute, MD5 produce un output di 128 bit. Tuttavia, a causa di vulnerabilità crittografiche scoperte, MD5 non è più considerata sicura per molte applicazioni critiche.
+    \item \textbf{SHA-1 (Secure Hash Algorithm 1)}: produce un output di 160 bit ed è stata ampiamente utilizzata in passato. Analogamente a MD5, ha subito critiche e attacchi, rendendola inadeguata per applicazioni sicure.
+    \item \textbf{SHA-2 (Secure Hash Algorithm 2)}: una famiglia di funzioni hash che include SHA-224, SHA-256, SHA-384 e SHA-512, con numeri che indicano la dimensione dell'output in bit. SHA-2 è attualmente considerata sicura ed è ampiamente utilizzata in molte applicazioni crittografiche.
+    \item \textbf{SHA-3 (Secure Hash Algorithm 3)}: la più recente famiglia di funzioni hash standardizzata dal NIST. SHA-3 è stata progettata come alternativa a SHA-2, con una struttura crittografica diversa basata su Keccak, offrendo robustezza contro una vasta gamma di attacchi.
+\end{itemize}
 
-\subsection*{Esempio}
-Conseguentemente, GLaDOS è un ``observable'' per Output.
+\section{Firma Digitale con RSA}
+Il cifrario RSA può essere utilizzato per realizzare un meccanismo di firma digitale robusto e sicuro, sfruttando le sue proprietà matematiche.
 
-Qua esempio di immagine inserita sul posto.
+\subsection{Generazione della Firma Digitale con RSA}
+Nel cifrario RSA, ogni utente ha una coppia di chiavi: una chiave pubblica $(e, n)$ e una chiave privata $d$, dove $n$ è il prodotto di due numeri primi $p$ e $q$, $e$ è l'esponente di cifratura e $d$ è l'esponente di decifratura tale che:
+\[d \cdot e \equiv 1 \pmod{\phi(n)}\]
+Per firmare un messaggio $m$, il mittente:
+
+\begin{enumerate}
+    \item Calcola l'impronta digitale $H(m)$ del messaggio $m$ utilizzando una funzione di hash crittografica.
+    \item Cifra l'impronta digitale $H(m)$ con la chiave privata $d$, ottenendo la firma digitale $s$:
+    \[ s \equiv H(m)^d \pmod{n}\]
+\end{enumerate}
+
+\subsection{Verifica della Firma Digitale con RSA}
+Per verificare la firma digitale $s$, il destinatario:
+
+\begin{enumerate}
+    \item Calcola l'impronta digitale $H(m)$ del messaggio ricevuto $m$.
+    \item Decifra la firma digitale $s$ con la chiave pubblica $(e, n)$ del mittente:
+    \[v \equiv s^e \pmod{n}\]
+    \item Se $v = H(m)$, la firma digitale è valida.
+\end{enumerate}
 
 \begin{figure}[h]
-\centering{}
-\includegraphics[width=\textwidth]{img/example_img.pdf}
-\caption{L'interfaccia \texttt{GLaDOS}.}
-\label{img:example}
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/digital_signature_process.png}
+    \caption{Processo di Firma Digitale dal libro \cite{stallings2011cryptography}}
+    \label{fig:digital_signature_process}
 \end{figure}
 
-\section{Altra sezione}
+\section{Firma Digitale con DSA}
+Il Digital Signature Algorithm (DSA) è uno standard per la firma digitale di documenti elettronici basato sul problema del logaritmo discreto.
 
-\textbf{Sottotesto in grassetto}.
+\subsection{Generazione della Firma Digitale con DSA}
+Siano $p$ un numero primo grande, $q$ un fattore primo di $p - 1$, e $g$ un generatore dell'ordine $q$ nel campo $\mathbb{Z}_p^*$. Sia $x$ la chiave privata del mittente e $y = g^x \bmod p$ la corrispondente chiave pubblica.
 
-\subsection*{Esempio minimale}
+Per firmare un messaggio $m$, il mittente calcola un valore casuale $k$ coprime con $q$ e determina:
 
-\subsubsection{Sotto sotto sezione con paragrafi}
+\begin{align*}
+r &= (g^k \bmod p) \bmod q \\
+s &= k^{-1}(H(m) + xr) \bmod q
+\end{align*}
 
-\paragraph{Paragrafo1} Contenuto.
+Dove $H(m)$ è l'impronta digitale del messaggio $m$ e $(k^{-1} \bmod q)$ è l'inverso moltiplicativo di $k$ modulo $q$. La firma digitale è la coppia $(r, s)$.
 
-\paragraph{Paragrafo Risposta 1} Contenuto \textit{paragrafo}, con riferimento immagine
-\Cref{img:example}: e anche \texttt{Scrittura unicode}.
+\subsection{Verifica della Firma Digitale con DSA}
+La verifica della firma avviene calcolando:
 
-\chapter{Capitolo 3}
-\section{Sezione}
+\[
+v = g^{H(m)}y^{rs} \bmod p \bmod q
+\]
 
-Contenuto
+Se $v = r$, la firma è valida.
 
-\subsection{Esempio con sottosezioni e permalink}
+\section{Sicurezza e Utilizzo}
+La sicurezza della firma digitale con DSA risiede nella difficoltà di calcolare il logaritmo discreto $x$ dato $g$ e $y$, mentre per RSA dipende dalla difficoltà di fattorizzare il modulo $n$. Inoltre, la funzione di hash crittografica deve essere resistente alle collisioni.
 
-\subsubsection{Utilizzo di \texttt{LoadingCache} dalla libreria Google Guava}
+La firma digitale trova ampio utilizzo in diversi contesti per garantire l'autenticità, l'integrità e la non-ripudiabilità dei dati digitali. Alcune modalità d'utilizzo comuni includono:
 
-Permalink: \url{https://github.com/AlchemistSimulator/Alchemist/blob/d8a1799027d7d685569e15316a32e6394632ce71/alchemist-incarnation-protelis/src/main/java/it/unibo/alchemist/protelis/AlchemistExecutionContext.java#L141-L143}
+\begin{itemize}
+    \item Transazioni Elettroniche
+    \item Certificazione di Documenti
+    \item Protezione del Software
+    \item Autenticazione dei Messaggi di Posta Elettronica
+\end{itemize}
 
-\subsubsection{Utilizzo di \texttt{Stream} e lambda expressions}
+Queste sono solo alcune delle modalità d'utilizzo della firma digitale, che trova applicazione in molti altri contesti in cui è necessario garantire l'autenticità e l'integrità dei dati digitali. Standard come SSL/TLS, S/MIME e PGP incorporano meccanismi di firma digitale..
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+\chapter{Curve Ellittiche}
+Le curve ellittiche sono insiemi di punti $(x, y)$ che soddisfano un'equazione di forma cubica: $y^2 = x^3 + ax + b$, dove $a$ e $b$ sono costanti. Le curve ellittiche hanno molte applicazioni in crittografia grazie alla loro proprietà di essere non solo additive ma anche moltiplicative.
 
-Usate pervasivamente. Il seguente è un singolo esempio.
-Permalink: \url{https://github.com/AlchemistSimulator/Alchemist/blob/d8a1799027d7d685569e15316a32e6394632ce71/alchemist-incarnation-protelis/src/main/java/it/unibo/alchemist/model/ProtelisIncarnation.java#L98-L120}
+\section{Definizione}
 
-\subsubsection{Scrittura di metodo generico con parametri contravarianti}
+Una curva ellittica su un campo $K$ è l'insieme dei punti $(x, y)$ che soddisfano l'equazione:
+
+\[y^2 = x^3 + ax + b\]
+
+dove $a, b \in K$ e $4a^3 + 27b^2 \neq 0$. Il punto all'infinito $\mathcal{O}$ è incluso nella curva ellittica.
+
+\section{Operazioni su Curve Ellittiche}
+
+Le curve ellittiche supportano operazioni di somma e moltiplicazione tra punti. L'operazione di somma tra due punti $P$ e $Q$ su una curva ellittica restituisce un terzo punto $R$ che giace sulla stessa curva. L'operazione di moltiplicazione tra un punto $P$ e uno scalare $k$ restituisce un punto $Q$ che è la somma di $P$ con se stesso $k$ volte.
+
+\section{Crittoanalisi delle Curve Ellittiche}
+
+Le curve ellittiche sono utilizzate in crittografia per la loro resistenza a diverse tecniche di crittoanalisi, come l'attacco brute-force e l'attacco conosciuto come "baby-step giant-step". Tuttavia, la sicurezza delle curve ellittiche dipende dalla scelta dei parametri e dalla corretta implementazione degli algoritmi crittografici.
+
+\section{Applicazioni delle Curve Ellittiche}
+
+Le curve ellittiche sono utilizzate in diversi protocolli crittografici, come il Diffie-Hellman ellittico (ECDH) per lo scambio di chiavi segrete, l'algoritmo di firma digitale ellittica (ECDSA) per la firma digitale e il crittosistema di ElGamal ellittico per la crittografia a chiave pubblica. Le curve ellittiche sono anche utilizzate in applicazioni come la crittografia di dispositivi mobili e la sicurezza delle transazioni finanziarie.
+
+\chapter{Esempi}
+\texttt{Proviamo}
 
 Permalink: \url{https://github.com/AlchemistSimulator/Alchemist/blob/d8a1799027d7d685569e15316a32e6394632ce71/alchemist-incarnation-protelis/src/main/java/it/unibo/alchemist/protelis/AlchemistExecutionContext.java#L141-L143}
 
