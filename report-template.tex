@@ -234,7 +234,24 @@ Dove $\phi(n)$ è la \textbf{funzione totiente di Eulero}, che conta il numero d
 Se $p$ è un numero primo e $a$ è un intero tale che $1 < a < p$, allora
 \[a^{p-1} \equiv 1 \pmod{p}\]
 
+\subsection*{Teorema Cinese del Resto} \label{sec:cinese}
+Il teorema cinese del resto è un importante risultato della teoria dei numeri che permette di risolvere un sistema di congruenze simultanee. 
 
+Supponiamo di avere un sistema di congruenze lineari:
+\[\begin{cases}
+x \equiv a_1 \pmod{m_1} \\
+x \equiv a_2 \pmod{m_2} \\
+\vdots \\
+x \equiv a_n \pmod{m_n}
+\end{cases}\]
+
+dove $a_1, a_2, \ldots, a_n$ sono gli interi dati e $m_1, m_2, \ldots, m_n$ sono gli interi positivi coprimi a due a due.
+
+Il teorema cinese del resto afferma che esiste una soluzione unica modulo $M = m_1 \cdot m_2 \cdot \ldots \cdot m_n$ per il sistema di congruenze. In altre parole, esiste un unico intero $x$ tale che $x \equiv a_i \pmod{m_i}$ per ogni $i$.
+
+La soluzione $x$ può essere calcolata utilizzando l'algoritmo del teorema cinese del resto, che coinvolge l'utilizzo dell'inverso moltiplicativo modulo $m_i$ per ogni $i$.
+
+Il teorema cinese del resto è ampiamente utilizzato in crittografia e in altri campi della matematica applicata, in particolare quando si lavora con grandi numeri e sistemi di congruenze complessi.
 %
 %
 %
@@ -314,7 +331,7 @@ I passi per la generazione di un numero primo "forte":
     \item{\textbf{Generazione Casuale} del numero.} 
     \item{\textbf{Verifica della Primalità}: ci sono diversi Test per verificare che il numero generato sia effettivamente primo, vedi Test di Fermat in \ref{sec:fermat}.}
     \item{\textbf{Ripetizione}: Se il numero generato non è primo, si ripete il processo di generazione fino a ottenere un numero primo valido.}
-    \item{\textbf{Utilizzo di Numeri Primi Sicuri}: sono considerati "safeprimes" i numeri primi di Sophie Germain: dato $p$ primo, è considerato safe se anche \(2p+1\) è primo. \cite{boneh2005}}
+    \item{\textbf{Utilizzo di Numeri Primi Sicuri}: ad esempio, sono considerati "safeprimes" i numeri primi di Sophie Germain: dato $p$ primo, è considerato safe se anche \(2p+1\) è primo. \cite{boneh2005}}
 \end{itemize}
 
 \subsection*{Specifiche Attuali della Lunghezza delle Chiavi RSA}
@@ -340,42 +357,84 @@ Sia $m$ il messaggio in chiaro, rappresentato come un numero intero nel range $[
 
 La sicurezza del cifrario RSA risiede nella difficoltà computazionale di fattorizzare $n$ in $p$ e $q$, dato che la conoscenza di $p$ e $q$ permette di calcolare $\phi(n)$ e quindi la chiave privata $d$. Pertanto, la scelta di numeri primi $p$ e $q$ sufficientemente grandi è cruciale per garantire la sicurezza del sistema.
 
-\section{Applicazioni e Considerazioni sulla Sicurezza}
-Il cifrario RSA trova applicazione in numerosi contesti, come la crittografia dei dati, la firma digitale, lo scambio di chiavi e l'autenticazione. Esso è ampiamente utilizzato in diversi protocolli di sicurezza, come SSL/TLS, PGP e molti altri.
+\section{Applicazioni e Sicurezza del Cifrario RSA}
 
-Tuttavia, è importante sottolineare che la sicurezza del cifrario RSA basandosi sulla difficoltà di fattorizzare grandi numeri interi composti, con l'avanzamento della potenza di calcolo dei computer e lo sviluppo di nuovi algoritmi di fattorizzazione, potrebbe diventare necessario aumentare le dimensioni delle chiavi per mantenere un adeguato livello di sicurezza.
+Il cifrario RSA è utilizzato per crittografare, firma digitale, scambio di chiavi e autenticazione, inclusi protocolli come SSL/TLS e PGP. Tuttavia, la sicurezza dipende dalla difficoltà di fattorizzare numeri composti. Con l'aumento della potenza di calcolo, potrebbe essere necessario aumentare le dimensioni delle chiavi. Sono presenti potenziali vulnerabilità legate alla scelta dei numeri primi e alla gestione delle chiavi, quindi è importante seguire le best practice di sicurezza.
 
-Inoltre, esistono altre potenziali vulnerabilità legate all'implementazione del cifrario RSA, come la scelta di numeri primi deboli, la gestione non sicura delle chiavi private e la possibilità di attacchi side-channel. Pertanto, è fondamentale seguire le best practice di sicurezza e utilizzare implementazioni affidabili e constantemente aggiornate del cifrario RSA.
+\section{Varianti e applicazioni}
+Il cifrario RSA è stato esteso e modificato in varie forme per migliorare le sicurezza e le prestazioni. Si presentano solo alcune varianti e applicazioni del cifrario RSA:
 
-\section{RSA a Chiave Multipla}
+\subsection{RSA Three Marsenne prime} \cite{padmaja2016}
+Variante dell'algoritmo RSA che sfrutta il Teorema Cinese dei Resti (CRT), vedi \ref{sec:cinese}, per migliorare l'efficienza computazionale durante le operazioni di cifratura e decifratura, utilizzando tre numeri primi di Marsenne per la generazione del modulo RSA.
 
-Il cifrario RSA a chiave multipla è un'estensione dell'algoritmo RSA standard progettata per consentire la cifratura di messaggi destinati a più destinatari utilizzando una singola chiave privata. In questa sezione, esploreremo le principali differenze e aggiunte rispetto a RSA standard.
+\subsubsection*{Numeri di Marsenne}
+I numeri di Marsenne sono numeri primi \(p\) tali che anche \(2^p - 1\) è un numero primo. 
 
-\subsection{Generazione delle Chiavi}
+\subsubsection*{Differenze nella generazione Chiave}
+\begin{itemize}
+    \item Genera tre numeri primi di Marsenne distinti $p$, $q$, e $r$ di lunghezza simile.
+    \item Calcola $n = p \cdot q \cdot r$ e $\phi(n) = (p-1)(q-1)(r-1)$.
+\end{itemize}
 
-Nel RSA a chiave multipla, vengono generate più coppie di chiavi pubbliche/ private, una per ogni destinatario. Sia \( (N_i, e_i, d_i) \) la \( i \)-esima coppia di chiavi generate, dove \( N_i \) è il modulo, \( e_i \) è l'esponente pubblico e \( d_i \) è l'esponente privato. Questo richiede una procedura di generazione delle chiavi più complessa rispetto alla generazione di una singola coppia di chiavi.
+\subsection{RSA con Esponenti Brevi e Bilanciati} \cite{10.1007/978-3-540-30580-4_14}
+Variante dell'algoritmo RSA che mira a ridurre i costi computazionali durante le operazioni di cifratura e decifratura, utilizzando esponenti più corti e bilanciati.
 
-\subsection{Cifratura dei Messaggi}
+\subsubsection*{Generazione della chiave}
+\begin{enumerate}
+    \item Genera due numeri primi distinti $p$ e $q$ di lunghezza simile.
+    \item Calcola $n = pq$ e $\phi(n) = (p-1)(q-1)$.
+    \item Scegli gli esponenti pubblici $e_1$, $e_2$ tali che $e_1 + e_2 = \phi(n) + 1$ e $\mathbb{MCD}(e_1, \phi(n)) = \mathbb{MCD}(e_2, \phi(n)) = 1$.
+    \item Calcola $d_1 \equiv e_1^{-1} \pmod{\phi(n)}$ e $d_2 \equiv e_2^{-1} \pmod{\phi(n)}$.
+\end{enumerate}
+La chiave pubblica è $(n, e_1, e_2)$ e la chiave privata è $(d_1, d_2)$.
 
-Il mittente utilizza la propria chiave privata \( d_S \) per cifrare il messaggio \( M \). Il messaggio cifrato \( C \) viene quindi cifrato separatamente utilizzando la chiave pubblica \( (N_i, e_i) \) di ciascun destinatario \( i \), generando \( C_i \). Formalmente:
+\subsection{Cifratura}
+\begin{enumerate}
+    \item Separa $m$ in due parti $m_1$ e $m_2$ tali che $m = m_1 \cdot m_2 \bmod n$.
+    \item Cifra le due parti $c_1 \equiv m_1^{e_1} \bmod n$ e $c_2 \equiv m_2^{e_2} \bmod n$.
+    \item $c = c_1 \cdot c_2 \bmod n$.
+\end{enumerate}
 
-\[C_i = (C^{e_i} \mod N_i)\]
+\subsection{Decifratura}
+\begin{enumerate}
+    \item Decifra le due parti $m_1 \equiv c^{d_1} \bmod n$ e $m_2 \equiv c^{d_2} \bmod n$.
+    \item Combina $m_1$ e $m_2$ per ottenere $m \equiv m_1 \cdot m_2 \bmod n$.
+\end{enumerate}
 
-\subsection{Decifratura dei Messaggi}
+L'idea chiave di questa variante è che gli esponenti $e_1$ ed $e_2$ sono molto più corti dell'esponente $e$ utilizzato nel RSA standard, riducendo così i costi computazionali durante la cifratura e la decifrazione.
 
-Ogni destinatario utilizza la propria chiave privata \( d_i \) per decifrare il messaggio cifrato \( C_i \) utilizzando la formula:
-\[M = (C_i^{d_i} \mod N_i)\]
+\subsection{RPrime RSA} \cite{Nasution_2020}
+Rprime migliora il costo computazionale sul lato della decifrazione combinando RSA a Esponenti Brevi Bilanciati e RSA Three Prime. 
+La sicurezza di Rprime RSA, così come quella di RSA riequilibrato, dipende dalla sicurezza offerta dall'esponente privato d e dalle dimensioni dei primi utilizzati.
+\subsubsection*{Generazione della chiave}
+\begin{enumerate}
+\item Genera $k$ numeri primi distinti $p_1, p_2, \ldots, p_k$ tali che $\mathbb{MCD}(p_i - 1, p_j - 1) = 2$ per $1 \leq i, j \leq k$.
+\item Calcola $n = p_1 \cdot p_2 \cdots p_k$ e $\phi(n) = (p_1 - 1)(p_2 - 1) \cdots (p_k - 1)$.
+\item Genera $k$ numeri casuali $d_{p_1}, d_{p_2}, \ldots, d_{p_k}$ tali che $\mathbb{MCD}(d_{p_i}, p_i - 1) = 1$ e $d_{p_i} \equiv d_{p_j} \pmod{2}$ per $1 \leq i, j \leq k$.
+\item Calcola $d$ usando il Teorema dei Resti Cinesi (CRT).
+\item Calcola $e \equiv d^{-1} \pmod{\phi(n)}$.
+\end{enumerate}
+La chiave pubblica è $(e, n)$ e la chiave privata è $(p_1, \ldots, p_k, d_{p_1}, \ldots, d_{p_k}, d)$.
 
-In questo modo, solo il destinatario corretto sarà in grado di decifrare il messaggio.
+\subsection{Multi-factor RSA} \cite{Nasution_2020}
+Il Multi-factor RSA si basa sulla modifica della struttura del RSA , con \(n = pqr\) o \(n = p^2 r\). 
+Nel processo di generazione delle chiavi, viene dato un parametro aggiuntivo chiamato b. 
 
-\subsection{Vantaggi e Considerazioni}
+\subsubsection*{Generazione della chiave}
+\begin{enumerate}
+\item Genera $b$ numeri primi distinti $p_1, p_2, \ldots, p_b$.
+\item Calcola $n = p_1 \cdot p_2 \cdots p_b$.
+\item Calcola $\phi(n) = (p_1 - 1)(p_2 - 1) \cdots (p_b - 1)$.
+\item Scegli lo stesso $e$ usato nella chiave pubblica RSA standard, cioè $e = 65537$. Quindi calcola $d \equiv e^{-1} \pmod{\phi(n)}$.
+\end{enumerate}
+La chiave pubblica è $(e, n)$ e la chiave privata è $(d)$.
 
-L'RSA a chiave multipla offre una maggiore flessibilità e sicurezza rispetto alla cifratura RSA standard, consentendo di inviare messaggi cifrati a più destinatari utilizzando una sola chiave privata. Tuttavia, richiede una gestione più complessa delle chiavi e può essere soggetto a sfide legate alla sicurezza, come la corretta autenticazione dei destinatari.
-
-In conclusione, l'RSA a chiave multipla è una potente estensione dell'algoritmo RSA standard, che offre un'opzione efficace per la cifratura di dati destinati a più destinatari in un contesto crittografico.
-
-\section{Estensioni e Miglioramenti}
-Nel corso degli anni, sono state proposte diverse estensioni e miglioramenti al cifrario RSA originale, come:
+\subsubsection*{Decifrazione}
+La cifratura avviene come nel RSA standard, mentre la decifratura no, si decripta il messaggio usando il Teorema dei Resti Cinesi (CRT):
+\begin{enumerate}
+\item Calcola $d_i \equiv d \bmod (p_i - 1)$ e $m_i \equiv c^{d_i} \bmod p_i$ per ogni $i$, $1 \leq i \leq b$.
+\item Combina gli $m_i$ usando il CRT per ottenere $M \equiv c^d \bmod n$.
+\end{enumerate}
 
 \subsection{RSA a Chiave Multipla}
 Il sistema RSA a chiave multipla consente di utilizzare più di due chiavi per cifrare e decifrare i messaggi, aumentando la sicurezza e la flessibilità del sistema. In questo schema, viene generato un insieme di $t$ chiavi pubbliche $(e_1, n_1), (e_2, n_2), \ldots, (e_t, n_t)$ e un'unica chiave privata $d$ condivisa.
@@ -386,83 +445,19 @@ La cifratura avviene calcolando:
 Mentre la decifratura si ottiene calcolando:
 \[m \equiv c^d \pmod{n_1 n_2 \cdots n_t}\]
 
-Questo schema offre una maggiore sicurezza rispetto al RSA tradizionale, in quanto un potenziale attaccante dovrebbe fattorizzare il prodotto di tutti i moduli $n_i$ per compromettere il sistema. Inoltre, consente una maggiore flessibilità nella gestione delle chiavi pubbliche.
+Questo schema offre una maggiore sicurezza rispetto al RSA tradizionale, in quanto un potenziale attaccante dovrebbe fattorizzare il prodotto di tutti i moduli $n_i$ per compromettere il sistema.
 
-\subsection{RSA a Esponente Piccolo}
-Il RSA a esponente piccolo è una variante che utilizza esponenti di cifratura e decifratura molto piccoli, come $3$ o $17$, al fine di migliorare le prestazioni delle operazioni di cifratura e decifratura. Questo approccio sfrutta la proprietà:
-\[m^{e_1 e_2} \equiv (m^{e_1})^{e_2} \pmod{n}\]
-
-Pertanto, la cifratura avviene calcolando $c \equiv m^{e_1} \pmod{n}$, mentre la decifratura richiede due passi:
-\begin{align*}
-x &\equiv c^{e_2} \pmod{n} \\
-m &\equiv x^d \pmod{n}
-\end{align*}
-
-Sebbene l'utilizzo di esponenti piccoli riduca il costo computazionale delle operazioni, esistono potenziali vulnerabilità legate alla distribuzione dei messaggi cifrati e alla possibilità di attacchi a testo cifrato scelto.
-
-\subsection{RSA con Funzione di Padding}
-Le funzioni di padding vengono utilizzate per rendere il cifrario RSA più sicuro e compatibile con vari standard crittografici. Esse consistono nell'aggiungere bit ridondanti al messaggio prima della cifratura, al fine di prevenire attacchi come quello a testo cifrato scelto.
-
-Uno schema di padding comune è OAEP (Optimal Asymmetric Encryption Padding), che utilizza una funzione di hash crittografica e una funzione di mascheramento per aumentare la sicurezza del messaggio cifrato. Un altro schema diffuso è PKCS\#1 v1.5, che aggiunge bit casuali e una struttura specifica al messaggio.
-
-L'utilizzo di funzioni di padding appropriate è fondamentale per garantire la sicurezza del cifrario RSA e prevenire potenziali vulnerabilità legate all'input dei messaggi.
-
-\subsection{RSA con Cifratura a Blocchi}
-Poiché l'operazione di cifratura del RSA può essere applicata solo a messaggi di dimensione inferiore al modulo $n$, è necessario suddividere i messaggi più lunghi in blocchi prima della cifratura. Ogni blocco viene quindi cifrato separatamente utilizzando la chiave pubblica.
-
-Esistono diverse modalità di cifratura a blocchi, come ECB (Electronic Code Book), CBC (Cipher Block Chaining), CFB (Cipher Feedback) e OFB (Output Feedback). Queste modalità introducono una dipendenza tra i blocchi cifrati, al fine di prevenire potenziali vulnerabilità legate alla cifratura a blocchi.
-
-La scelta della modalità di cifratura a blocchi dipende dalle esigenze di sicurezza e dalle caratteristiche del canale di comunicazione. Ad esempio, la modalità CBC offre una maggiore sicurezza rispetto a ECB, ma richiede un vettore di inizializzazione casuale.
-
-\subsection{RSA con Firma Digitale}
-Il cifrario RSA può essere utilizzato non solo per la cifratura dei messaggi, ma anche per la generazione di firme digitali. Questo processo consente di garantire l'autenticità e l'integrità dei dati trasmessi.
-
-La firma digitale di un messaggio $m$ viene calcolata come:
-\[s \equiv m^d \pmod{n}\]
-
-Dove $d$ è la chiave privata del firmatario. La verifica della firma avviene calcolando:
-\[m \equiv s^e \pmod{n}\]
-
-E confrontando il risultato con il messaggio originale. Esistono vari schemi di firma digitale basati su RSA, come PKCS\#1 v1.5 e PSS (Probabilistic Signature Scheme), che introducono ulteriori precauzioni per prevenire potenziali attacchi.
-
-\subsection{RSA con Crittografia Ibrida}
+\subsection{RSA in Sistemi Crittografici Ibridi}
 La crittografia ibrida combina il cifrario RSA con algoritmi di crittografia simmetrica, sfruttando i punti di forza di entrambi i sistemi. In questo schema, RSA viene utilizzato per cifrare una chiave simmetrica casuale, che a sua volta viene impiegata per cifrare il messaggio vero e proprio con un algoritmo simmetrico più efficiente.
 
-\sloppy
 Questo approccio offre diversi vantaggi, come una maggiore efficienza nelle operazioni di cifratura e decifratura dei dati, una migliore gestione delle chiavi e una maggiore sicurezza complessiva del sistema. 
+
 Esempi di schemi ibridi includono PGP (Pretty Good Privacy) e S/MIME (Secure/Multipurpose Internet Mail Extensions).
 
-\subsection{Ottimizzazioni e Implementazioni Efficienti}
-Per migliorare le prestazioni del cifrario RSA, sono state sviluppate diverse tecniche di ottimizzazione e implementazioni efficienti. Queste includono:
+\subsection{RSA a Chiave Condivisa}
+Sebbene il cifrario RSA sia principalmente utilizzato come sistema a chiave pubblica, esiste anche una variante a chiave condivisa, nota come RSA a chiave segreta. In questo schema, Alice e Bob concordano su una chiave segreta comune $(e, n)$, dove $n$ è il prodotto di due numeri primi segreti $p$ e $q$, ed $e$ è l'esponente di cifratura.
 
-\begin{itemize}
-   \item Algoritmi di esponenziazione veloce: consentono di calcolare esponenziali modulari in modo più efficiente, riducendo il numero di moltiplicazioni richieste.
-   \item Ottimizzazioni hardware e software: sfruttano le caratteristiche dei processori e dei sistemi operativi per accelerare le operazioni aritmetiche modulari.
-   \item Librerie e implementazioni open source: forniscono implementazioni sicure e ottimizzate del cifrario RSA, spesso integrate in framework crittografici più ampi.
-\end{itemize}
-
-Queste ottimizzazioni sono fondamentali per rendere il cifrario RSA praticabile in applicazioni real-world che richiedono prestazioni elevate e una gestione efficiente delle risorse computazionali.
-
-\begin{itemize}
-    \item RSA a chiave multipla: consente di utilizzare più di due chiavi per cifrare e decifrare i messaggi, aumentando la sicurezza e la flessibilità del sistema.
-    \item RSA a esponente piccolo: utilizza esponenti di cifratura e decifratura molto piccoli (come $3$ o $17$) per migliorare le prestazioni delle operazioni di cifratura e decifratura.
-    \item RSA a chiave corta: utilizza chiavi più corte (come $256$ bit) per ridurre i tempi di calcolo e la complessità computazionale, a discapito della sicurezza.
-    \item RSA a chiave omomorfica: consente di eseguire operazioni aritmetiche sui dati cifrati senza decifrarli, aprendo nuove possibilità per la privacy e la sicurezza dei dati.
-    \item RSA a chiave quantistica: sfrutta i principi della computazione quantistica per garantire una sicurezza ancora maggiore contro attacchi crittografici basati sulla fattorizzazione di numeri interi.
-    \item RSA a chiave post-quantistica: sviluppa algoritmi crittografici resistenti ai futuri attacchi quantistici, garantendo una protezione a lungo termine dei dati.
-    \item RSA a chiave ibrida: combina il cifrario RSA con altri algoritmi crittografici a chiave simmetrica o asimmetrica per ottenere un sistema crittografico più efficiente e sicuro.
-    \item RSA a chiave distribuita: suddivide la chiave privata tra più entità, rendendo più difficile per un singolo attaccante recuperare l'intera chiave.
-    \item RSA a chiave cieca: consente a un'entità di cifrare i dati senza conoscere la chiave pubblica dell'altra entità, garantendo la privacy e la sicurezza dei dati.
-    \item RSA a chiave condivisa: utilizza una chiave condivisa tra le entità per cifrare e decifrare i messaggi, semplificando la gestione delle chiavi e migliorando le prestazioni del sistema.
-    \item RSA a chiave zero-knowledge: consente a un'entità di dimostrare la conoscenza di una chiave privata senza rivelarla, garantendo la sicurezza e la privacy dei dati.
-    \item RSA a chiave quantistica resistente ai rumori: sviluppa algoritmi crittografici resistenti ai rumori quantistici, garantendo una protezione affidabile contro gli attacchi crittografici basati sulla computazione quantistica.
-    \item RSA a chiave post-quantistica resistente ai rumori: combina il cifrario RSA con tecniche di correzione degli errori per garantire una sicurezza a lungo termine contro gli attacchi crittografici basati sulla computazione quantistica.
-    \item RSA a chiave ibrida resistente ai rumori: combina il cifrario RSA con algoritmi di correzione degli errori per ottenere un sistema crittografico efficiente e sicuro contro gli attacchi crittografici basati sulla computazione quantistica.
-    \item RSA a chiave distribuita resistente ai rumori: suddivide la chiave privata tra più entità e utilizza tecniche di correzione degli errori per garantire una protezione affidabile contro gli attacchi crittografici basati sulla computazione quantistica.
-    \item RSA a chiave cieca resistente ai rumori: consente a un'entità di cifrare i dati senza conoscere la chiave pubblica dell'altra entità e utilizza tecniche di correzione degli errori per garantire la privacy e la sicurezza dei dati.
-    \item RSA a chiave condivisa resistente ai rumori: utilizza una chiave condivisa tra le entità e tecniche di correzione degli errori per cifrare e decifrare i messaggi, semplificando la gestione delle chiavi e migliorando le prestazioni del sistema.
-    \item RSA a chiave zero-knowledge resistente ai rumori: consente a un'entità di dimostrare la conoscenza di una chiave privata senza rivelarla e utilizza tecniche di correzione degli errori per garantire la sicurezza e la privacy dei dati.
-\end{itemize}
+La cifratura e la decifratura avvengono come nel RSA standard, ma utilizzando la stessa chiave $(e, n)$ condivisa. Questo approccio offre maggiore efficienza rispetto al RSA a chiave pubblica, ma richiede un canale sicuro per lo scambio della chiave segreta.
 %
 %
 %
@@ -557,7 +552,55 @@ Tuttavia, per gruppi sufficientemente grandi, questi algoritmi non sono in grado
 %
 %
 %
+\chapter{Algoritmo Diffie-Hellman}
 
+\section{Introduzione}
+L'algoritmo Diffie-Hellman, introdotto nel 1976 dai crittografi Whitfield Diffie e Martin Hellman, rappresenta un protocollo rivoluzionario per lo scambio sicuro di chiavi crittografiche su un canale non protetto. Esso consente a due parti di stabilire una chiave segreta condivisa senza dover trasmettere la chiave stessa sul canale di comunicazione, rendendo così impossibile per un potenziale ascoltatore intercettare la chiave.
+
+L'algoritmo Diffie-Hellman si basa sul problema del logaritmo discreto, un problema matematico computazionalmente difficile, per garantire la sicurezza della chiave scambiata.
+
+\section{Descrizione dell'Algoritmo}
+
+Supponiamo che Alice e Bob vogliano stabilire una chiave segreta condivisa per comunicare in modo sicuro. Il protocollo Diffie-Hellman si svolge come segue:
+
+\begin{enumerate}
+    \item Alice e Bob concordano pubblicamente due numeri primi: un numero primo grande $p$ e un generatore $g$ dell'ordine $p$.
+    \item Alice sceglie un numero intero casuale $a$ come sua chiave privata, calcola $A = g^a \bmod p$ e invia $A$ a Bob.
+    \item Bob sceglie un numero intero casuale $b$ come sua chiave privata, calcola $B = g^b \bmod p$ e invia $B$ ad Alice.
+    \item Alice calcola la chiave segreta condivisa $K = B^a \bmod p$.
+    \item Bob calcola la stessa chiave segreta condivisa $K = A^b \bmod p$.
+\end{enumerate}
+
+È possibile dimostrare che $K$ calcolato da Alice e Bob è lo stesso valore:
+
+\begin{align*}
+K &= B^a \bmod p \\
+  &= (g^b)^a \bmod p \\
+  &= g^{ab} \bmod p \\
+  &= (g^a)^b \bmod p \\
+  &= A^b \bmod p
+\end{align*}
+
+\section{Sicurezza dell'Algoritmo}
+La sicurezza dell'algoritmo Diffie-Hellman risiede nella difficoltà computazionale di calcolare il logaritmo discreto, ovvero di trovare $a$ o $b$ dati $g$, $p$, $A$ e $B$. Un potenziale ascoltatore che intercetti $A$ e $B$ non sarebbe in grado di derivare la chiave segreta condivisa $K$ senza conoscere $a$ o $b$.
+
+Inoltre, è importante scegliere valori sufficientemente grandi per $p$ e $g$, in modo da rendere il problema del logaritmo discreto computazionalmente intrattabile con le risorse di calcolo attuali.
+
+\section{Applicazioni e Utilizzo}
+L'algoritmo Diffie-Hellman ha avuto un impatto significativo sulla crittografia moderna e sulla sicurezza delle comunicazioni. Esso è ampiamente utilizzato in numerosi protocolli crittografici e di sicurezza, come SSL/TLS, IPsec e SSH, per stabilire chiavi segrete condivise prima di iniziare una comunicazione crittografata ("handshake").
+
+Inoltre, l'algoritmo Diffie-Hellman è alla base di altri importanti sistemi crittografici, come il Digital Signature Algorithm (DSA) e la crittografia a curva ellittica (ECC).
+
+\section{Considerazioni Finali}
+\begin{itemize}
+    \item \textbf{Non è completo:} Diffie-Hellman permette lo scambio sicuro di chiavi, ma non cifra direttamente i dati o firma i messaggi. È necessario combinare DH con altri algoritmi crittografici.
+    
+    \item \textbf{Richiede gestione accurata:} È essenziale gestire attentamente i parametri e le chiavi per un'implementazione sicura di Diffie-Hellman.
+    
+    \item \textbf{Prevenzione degli attacchi:} Devono essere adottate misure per prevenire attacchi side-channel e altri vettori di attacco durante l'implementazione di Diffie-Hellman.
+\end{itemize}
+
+Inoltre, l'implementazione pratica dell'algoritmo Diffie-Hellman richiede una gestione accurata dei parametri crittografici e delle chiavi, nonché l'adozione di contromisure per prevenire potenziali attacchi side-channel o altre fonti di attacco.
 %
 %
 %
@@ -654,10 +697,7 @@ Dove $H(m)$ è l'impronta digitale del messaggio $m$ e $(k^{-1} \bmod q)$ è l'i
 
 \subsection{Verifica della Firma Digitale con DSA}
 La verifica della firma avviene calcolando:
-
-\[
-v = g^{H(m)}y^{rs} \bmod p \bmod q
-\]
+\[v = g^{H(m)}y^{rs} \bmod p \bmod q\]
 
 Se $v = r$, la firma è valida.
 
