@@ -14,7 +14,7 @@
 
 \usepackage[italian]{cleveref}
 
-%\linespread{1.25} % Imposta l'interlinea di x volte la dimensione del carattere
+\linespread{0.9} % Imposta l'interlinea di x volte la dimensione del carattere
 
 \title{Teoria dei numeri \\ applicata alla Crittografia}
 
@@ -76,9 +76,6 @@ Occorre però ricordare che Euclide ha dimostrato che esistono infiniti numeri p
 Inoltre, si fa notare che il più grande numero primo conosciuto\footnote{Largest Know Prime Number:7 dicembre 2018 da Patrick Laroche} è \[2^{82,589,933} - 1\]
 e ha quasi 25 milioni di cifre.
 
-\subsection*{Numero composto}
-Un numero composto è un numero intero \( n > 1 \) che ha almeno un altro divisore, oltre 1 e \( n \) (se stesso).
-
 \section{Concetti Fondamentali}
 \subsection*{Fattorizzazione}
 La fattorizzazione è il processo di scomposizione di un numero intero \( n \) in un prodotto di numeri primi. 
@@ -92,20 +89,6 @@ dove \( p_1, p_2, \ldots, p_k \) sono numeri primi distinti e \( e_1, e_2, \ldot
 \subsection*{Divisibilità e criteri di divisibilità}
 
 Un numero \(a\) è divisibile per un numero \(b\) se il resto della divisione di \(a\) per \(b\) è zero. In altre parole, se esiste un numero intero \(k\) tale che \(a = b \cdot k\), allora \(a\) è divisibile per \(b\).
-
-Alcuni criteri di divisibilità comuni sono:
-\begin{itemize}
-	\item \textbf{Criterio della divisibilità per 2}: Un numero è divisibile per 2 se la sua ultima cifra è pari, cioè se termina con 0, 2, 4, 6 o 8.
-	
-	\item \textbf{Criterio della divisibilità per 3}: Un numero è divisibile per 3 se la somma delle sue cifre è divisibile per 3.
-	
-	\item \textbf{Criterio della divisibilità per 5}: Un numero è divisibile per 5 se termina con 0 o 5.
-	
-	\item \textbf{Criterio della divisibilità per 7}: Un numero è divisibile per 7 se il numero ottenuto sottraendo dal doppio della cifra delle unità il numero ottenuto togliendo la cifra delle unità è divisibile per 7.
-
-	\item \textbf{Criterio della divisibilità per 11}: Un numero è divisibile per 11 se la differenza tra la somma delle cifre in posizione pari e la somma delle cifre in posizione dispari è un multiplo di 11(compreso lo 0).
-
-\end{itemize}
 
 \subsection*{Massimo comune divisore (MCD)}
 Il massimo comune divisore di due numeri interi \( a \) e \( b \), denotato come 
@@ -294,8 +277,6 @@ Il teorema cinese del resto è ampiamente utilizzato in crittografia e in altri 
 %
 %
 \chapter{Il Cifrario RSA}
-
-\section{Introduzione}
 Il cifrario RSA, introdotto dai crittografi Ron Rivest, Adi Shamir e Leonard Adleman nel 1977, rappresenta uno dei più importanti e diffusi algoritmi crittografici a chiave pubblica. 
 Esso sfrutta le proprietà della teoria dei numeri e dell'aritmetica modulare per garantire la sicurezza delle comunicazioni. 
 A differenza dei sistemi crittografici a chiave simmetrica, in cui la stessa chiave viene utilizzata per cifrare e decifrare i messaggi, il cifrario RSA utilizza due chiavi diverse, una pubblica e una privata.
@@ -388,14 +369,14 @@ Variante dell'algoritmo RSA che mira a ridurre i costi computazionali durante le
 \end{enumerate}
 La chiave pubblica è $(n, e_1, e_2)$ e la chiave privata è $(d_1, d_2)$.
 
-\subsection{Cifratura}
+\subsubsection*{Cifratura}
 \begin{enumerate}
     \item Separa $m$ in due parti $m_1$ e $m_2$ tali che $m = m_1 \cdot m_2 \bmod n$.
     \item Cifra le due parti $c_1 \equiv m_1^{e_1} \bmod n$ e $c_2 \equiv m_2^{e_2} \bmod n$.
     \item $c = c_1 \cdot c_2 \bmod n$.
 \end{enumerate}
 
-\subsection{Decifratura}
+\subsubsection*{Decifratura}
 \begin{enumerate}
     \item Decifra le due parti $m_1 \equiv c^{d_1} \bmod n$ e $m_2 \equiv c^{d_2} \bmod n$.
     \item Combina $m_1$ e $m_2$ per ottenere $m \equiv m_1 \cdot m_2 \bmod n$.
@@ -476,8 +457,6 @@ La cifratura e la decifratura avvengono come nel RSA standard, ma utilizzando la
 %
 %
 \chapter{Il Problema del Logaritmo Discreto}
-
-\section{Introduzione}
 Il problema del logaritmo discreto è uno dei problemi fondamentali nella crittografia a chiave pubblica e nella teoria dei numeri. Esso costituisce la base di molti importanti algoritmi crittografici, come il crittosistema di Diffie-Hellman, il DSA (Digital Signature Algorithm) e i crittosistemi basati sulle curve ellittiche.
 
 \begin{figure}[ht]
@@ -558,8 +537,6 @@ Tuttavia, per gruppi sufficientemente grandi, questi algoritmi non sono in grado
 %
 %
 \chapter{Algoritmo Diffie-Hellman}
-
-\section{Introduzione}
 L'algoritmo Diffie-Hellman, introdotto nel 1976 dai crittografi Whitfield Diffie e Martin Hellman, rappresenta un protocollo rivoluzionario per lo scambio sicuro di chiavi crittografiche su un canale non protetto. Esso consente a due parti di stabilire una chiave segreta condivisa senza dover trasmettere la chiave stessa sul canale di comunicazione, rendendo così impossibile per un potenziale ascoltatore intercettare la chiave.
 
 L'algoritmo Diffie-Hellman si basa sul problema del logaritmo discreto, un problema matematico computazionalmente difficile, per garantire la sicurezza della chiave scambiata.
@@ -626,24 +603,28 @@ Le curve ellittiche sono insiemi di punti $(x, y)$ che soddisfano un'equazione d
 Ad esempio, se \( p \) è un numero primo, allora \( \mathbb{Z}_p\) è un campo.
 
 \section{Definizione}
-
 Una curva ellittica su un campo $K$ è l'insieme dei punti $(x, y)$ che soddisfano l'equazione:
-
 \[y^2 = x^3 + ax + b\]
 
 dove $a, b \in K$ e $4a^3 + 27b^2 \neq 0$. Il punto all'infinito $\mathcal{O}$ è incluso nella curva ellittica.
 
 \section{Operazioni su Curve Ellittiche}
-
 Le curve ellittiche supportano operazioni di somma e moltiplicazione tra punti. L'operazione di somma tra due punti $P$ e $Q$ su una curva ellittica restituisce un terzo punto $R$ che giace sulla stessa curva. L'operazione di moltiplicazione tra un punto $P$ e uno scalare $k$ restituisce un punto $Q$ che è la somma di $P$ con se stesso $k$ volte.
 
 \section{Crittoanalisi delle Curve Ellittiche}
-
 Le curve ellittiche sono utilizzate in crittografia per la loro resistenza a diverse tecniche di crittoanalisi, come l'attacco brute-force e l'attacco conosciuto come "baby-step giant-step". Tuttavia, la sicurezza delle curve ellittiche dipende dalla scelta dei parametri e dalla corretta implementazione degli algoritmi crittografici.
 
 \section{Applicazioni delle Curve Ellittiche}
-
 Le curve ellittiche sono utilizzate in diversi protocolli crittografici, come il Diffie-Hellman ellittico (ECDH) per lo scambio di chiavi segrete, l'algoritmo di firma digitale ellittica (ECDSA) per la firma digitale e il crittosistema di ElGamal ellittico per la crittografia a chiave pubblica. Le curve ellittiche sono anche utilizzate in applicazioni come la crittografia di dispositivi mobili e la sicurezza delle transazioni finanziarie.
+
+\section{Diffie-Hellman Ellittico (ECDH)}
+Variante del Diffie-Hellman adattata alle curve ellittiche per stabilire una chiave segreta condivisa su un canale non sicuro.
+
+\subsection*{Scambio di Chiavi con ECDH}
+Alice e Bob concordano sui parametri della curva ellittica $(a, b, p)$ e un punto base $G$. Alice sceglie $a$, Bob sceglie $b$. Si scambiano $A = aG$ e $B = bG$, quindi calcolano $K = abG$.
+
+\subsection*{Vantaggi e Applicazioni}
+L'ECDH offre maggiore efficienza e sicurezza computazionale rispetto al Diffie-Hellman tradizionale. È utilizzato in TLS, SSH e IPsec e come base per ECDSA e ElGamal ellittico.
 
 %
 %
@@ -652,8 +633,6 @@ Le curve ellittiche sono utilizzate in diversi protocolli crittografici, come il
 %
 %
 \chapter{Firma Digitale}
-
-\section{Introduzione}
 La firma digitale è un meccanismo crittografico fondamentale per garantire l'autenticità, l'integrità e la non-ripudiabilità dei dati digitali. Essa svolge un ruolo analogo a quello della firma autografa nei documenti cartacei, ma sfrutta tecniche di crittografia a chiave pubblica per offrire maggiore sicurezza e verificabilità. I principali algoritmi utilizzati per la firma digitale sono il Digital Signature Algorithm (DSA) e il cifrario RSA.
 \section{Funzioni Hash}
 Le funzioni hash sono essenziali per il funzionamento delle firme digitali.
@@ -690,7 +669,7 @@ Per essere utilizzata nella firma digitale, una funzione hash deve possedere le 
 \section{Firma Digitale con RSA}
 Il cifrario RSA può essere utilizzato per realizzare un meccanismo di firma digitale robusto e sicuro, sfruttando le sue proprietà matematiche.
 
-\subsection{Generazione della Firma Digitale con RSA}
+\subsection*{Generazione della Firma Digitale con RSA}
 Nel cifrario RSA, ogni utente ha una coppia di chiavi: una chiave pubblica $(e, n)$ e una chiave privata $d$, dove $n$ è il prodotto di due numeri primi $p$ e $q$, $e$ è l'esponente di cifratura e $d$ è l'esponente di decifratura tale che:
 \[d \cdot e \equiv 1 \pmod{\phi(n)}\]
 Per firmare un messaggio $m$, il mittente:
@@ -701,7 +680,7 @@ Per firmare un messaggio $m$, il mittente:
     \[ s \equiv H(m)^d \pmod{n}\]
 \end{enumerate}
 
-\subsection{Verifica della Firma Digitale con RSA}
+\subsection*{Verifica della Firma Digitale con RSA}
 Per verificare la firma digitale $s$, il destinatario:
 
 \begin{enumerate}
@@ -721,7 +700,7 @@ Per verificare la firma digitale $s$, il destinatario:
 \section{Firma Digitale con DSA}
 Il Digital Signature Algorithm (DSA) è uno standard per la firma digitale di documenti elettronici basato sul problema del logaritmo discreto.
 
-\subsection{Generazione della Firma Digitale con DSA}
+\subsection*{Generazione della Firma Digitale con DSA}
 Siano $p$ un numero primo grande, $q$ un fattore primo di $p - 1$, e $g$ un generatore dell'ordine $q$ nel campo $\mathbb{Z}_p^*$. Sia $x$ la chiave privata del mittente e $y = g^x \bmod p$ la corrispondente chiave pubblica.
 
 Per firmare un messaggio $m$, il mittente calcola un valore casuale $k$ coprime con $q$ e determina:
@@ -733,7 +712,7 @@ s &= k^{-1}(H(m) + xr) \bmod q
 
 Dove $H(m)$ è l'impronta digitale del messaggio $m$ e $(k^{-1} \bmod q)$ è l'inverso moltiplicativo di $k$ modulo $q$. La firma digitale è la coppia $(r, s)$.
 
-\subsection{Verifica della Firma Digitale con DSA}
+\subsection*{Verifica della Firma Digitale con DSA}
 La verifica della firma avviene calcolando:
 \[v = g^{H(m)}y^{rs} \bmod p \bmod q\]
 
@@ -764,6 +743,52 @@ Queste sono solo alcune delle modalità d'utilizzo della firma digitale, che tro
 %
 %
 %
+
+\chapter{Firma Digitale Ellittica (ECDSA)}
+L'Algoritmo di Firma Digitale Ellittica (ECDSA) è uno schema di firma digitale basato sulle curve ellittiche. Esso consente di garantire l'autenticità, l'integrità e la non-ripudiabilità dei dati digitali attraverso l'utilizzo di tecniche crittografiche a chiave pubblica.
+
+\section{Generazione delle Chiavi}
+Nel sistema ECDSA, ogni utente ha una coppia di chiavi: una chiave privata $d$ e una corrispondente chiave pubblica $Q$, calcolate come segue:
+
+\begin{enumerate}
+    \item Scegliere una curva ellittica $E$ su un campo finito $\mathbb{F}_p$ e un punto base $G$ sulla curva.
+    \item Scegliere un numero intero casuale $d$ come chiave privata, con $1 \leq d \leq n-1$, dove $n$ è l'ordine del punto base $G$.
+    \item Calcolare la chiave pubblica $Q = dG$.
+\end{enumerate}
+
+La chiave privata $d$ deve essere mantenuta segreta, mentre la chiave pubblica $Q$ può essere diffusa pubblicamente.
+
+\section{Generazione della Firma Digitale}
+Per firmare un messaggio $m$, il mittente segue questi passi:
+
+\begin{enumerate}
+    \item Scegliere un valore casuale $k$ tale che \(\mathbb{MCD}(k,n)=1\).
+    \item Calcolare $r = (kG)_x \bmod n$, dove $(kG)_x$ è la coordinata $x$ del punto $kG$ sulla curva.
+    \item Calcolare $s = k^{-1}(H(m) + dr) \bmod n$, dove $H(m)$ è l'impronta digitale del messaggio $m$ ottenuta tramite una funzione di hash crittografica.
+\end{enumerate}
+
+La firma digitale del messaggio $m$ è la coppia $(r, s)$.
+
+\section{Verifica della Firma Digitale}
+Per verificare la firma digitale $(r, s)$ di un messaggio $m$, il destinatario segue questi passi:
+
+\begin{enumerate}
+    \item Calcolare $w = s^{-1} \bmod n$.
+    \item Calcolare $u_1 = H(m)w \bmod n$ e $u_2 = rw \bmod n$.
+    \item Calcolare $X = u_1G + u_2Q$.
+    \item Se $X_x = r \bmod n$, dove $X_x$ è la coordinata $x$ del punto $X$, la firma digitale è valida.
+\end{enumerate}
+
+\section{Sicurezza e Proprietà}
+La sicurezza dell'ECDSA risiede nella difficoltà computazionale di risolvere il problema del logaritmo discreto ellittico, ovvero di trovare $d$ dati $G$ e $Q$. Un potenziale attaccante che conoscesse $d$ sarebbe in grado di generare firme digitali valide, compromettendo l'integrità del sistema.
+
+Inoltre, la funzione di hash crittografica utilizzata per calcolare l'impronta digitale del messaggio deve essere resistente alle collisioni e alle preimmagini, in modo da garantire l'unicità delle firme digitali.
+
+\section{Applicazioni e Standard}
+L'ECDSA è stato adottato come standard per la firma digitale da parte di numerosi enti e organizzazioni, tra cui il NIST \cite{nist}. Usato per la firma di documenti elettronici, l'autenticazione dei messaggi di posta elettronica e le transazioni finanziarie elettroniche.
+
+Inoltre, l'ECDSA è stato incorporato in diversi protocolli crittografici e standard di sicurezza, come SSL/TLS, S/MIME e PGP.
+
 
 \nocite{*}
 \bibliographystyle{plain}
