@@ -14,7 +14,7 @@
 
 \usepackage[italian]{cleveref}
 
-\linespread{1.25} % Imposta l'interlinea di x volte la dimensione del carattere
+%\linespread{1.25} % Imposta l'interlinea di x volte la dimensione del carattere
 
 \title{Teoria dei numeri \\ applicata alla Crittografia}
 
@@ -53,7 +53,7 @@ Verranno approfonditi concetti come la fattorizzazione, il logaritmo discreto e 
 La teoria dei numeri è lo studio dei numeri interi, e delle loro proprietà. L'insieme dei numeri interi è $\mathbb{Z}$ e contiene tutti i numeri interi positivi e negativi, insieme allo zero.
 \begin{quote}
 	\centering
-	..., -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, ...
+	..., -5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5, ...
 \end{quote}
 
 \section{Definizioni}
@@ -61,8 +61,7 @@ La teoria dei numeri è lo studio dei numeri interi, e delle loro proprietà. L'
 \subsection*{Numero primo}
 Un numero primo è un numero intero \( p > 1 \) che ha esattamente due divisori: 1 e \(p\) (se stesso).
 
-Vediamo degli esempi: ogni numero a sinistra nella seguente tabella è primo. Questo schema non continua indefinitamente, ma qualcosa di simile funziona.
-
+\textbf{Esempi}: ogni numero a sinistra nella seguente tabella è primo.
 \[\begin{array}{ll}
 3 & = 2 + 1 \\
 7 & = 2 \cdot 3 + 1 \\
@@ -70,6 +69,7 @@ Vediamo degli esempi: ogni numero a sinistra nella seguente tabella è primo. Qu
 211 & = 2 \cdot 3 \cdot 5 \cdot 7 + 1 \\
 2311 & = 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 + 1 \\
 \end{array}\]
+Questo schema non continua indefinitamente, ma qualcosa di simile funziona.
 
 Occorre però ricordare che Euclide ha dimostrato che esistono infiniti numeri primi. \cite{stein2008}
 
@@ -127,7 +127,8 @@ Due numeri interi sono definiti come \textbf{coprimi} (o primi tra loro) se il l
 
 L'aritmetica modulare è un ramo fondamentale della teoria dei numeri che studia le operazioni aritmetiche sui resti delle divisioni intere. Questo capitolo esplora i concetti chiave dell'aritmetica modulare necessari per comprendere molti algoritmi crittografici moderni.
 
-\section{Definizioni} \subsection*{Modulo} Dato un numero intero $a$ e un modulo $n$, numero intero positivo, il "resto della divisione di $a$ per $n$" è il valore che rimane quando $a$ è diviso per $n$. Questo valore è sempre compreso tra 0 e $n-1$, inclusi.
+\section{Definizioni} 
+\subsection*{Operatore modulo} Dato un numero intero $a$ e un modulo $n$, numero intero positivo, il "resto della divisione di $a$ per $n$" è il valore che rimane quando $a$ è diviso per $n$. Questo valore è sempre compreso tra 0 e $n-1$, inclusi.
 
 Simbolicamente, possiamo esprimere il resto della divisione di $a$ per $n$ come:
 
@@ -135,22 +136,22 @@ Simbolicamente, possiamo esprimere il resto della divisione di $a$ per $n$ come:
 
 dove "mod" è l'operatore modulo.
 
-\subsection*{Insieme modulo \(n\) : \(\mathbb{Z}_n\)}
+\subsection*{Insieme modulo \( \mathbb{Z}_n\)}
 Si sceglie un numero intero positivo \(n\), chiamato modulo, che determina l'insieme dei resti modulo \(n\). 
 Questo insieme è denotato come \(\mathbb{Z}_n\)  , ed è composto da tutti i numeri interi che vanno da 0 a \(n-1\).
 
 \textbf{Formalmente}: \[\mathbb{Z}_n = \{0, 1, 2, \ldots, n-1\}\]
 
-\subsection*{Gruppo moltiplicativo modulo \(n\): \(\mathbb{Z}_n^*\)}
+\subsection*{Gruppo moltiplicativo \(\mathbb{Z}_n^*\)}
 Un insieme modulo che contiene solo numeri coprimi rispetto al modulo dato è noto come gruppo moltiplicativo modulo \(n\), indicato con \(\mathbb{Z}_n^*\) o \((\mathbb{Z}/n\mathbb{Z})^*\). 
 Questo gruppo è composto da tutti gli interi positivi minori di \(n\) che sono coprimi con \(n\).
 
 \textbf{Formalmente}: \[\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n : \text{MCD}(a, n) = 1\}\]
 
-\subsection*{Funzione Totiente di Eulero}
+\subsection*{Funzione Totiente di Eulero} \label{sec:totiente}
 La funzione totiente di Eulero, indicata con $\phi(n)$, conta il numero di interi positivi minori o uguali a $n$ che sono coprimi con $n$, ovvero che non hanno fattori comuni con $n$ eccetto $1$. 
 
-\textbf{Formalmente}:\[\phi(n) = |\{k \in \mathbb{Z}_n : \mathbb{MCD}(k, n) = 1\}| = |\mathbb{Z}_n^*|\]
+\textbf{Formalmente}:\[\phi(n) = |\{a \in \mathbb{Z}_n : \mathbb{MCD}(a, n) = 1\}| = |\mathbb{Z}_n^*|\]
 \section{Congruenza Modulare}
 
 Data una coppia di interi $a$ e $b$, e un intero positivo $n$ detto \textbf{modulo}, diciamo che $a$ è congruo a $b$ modulo $n$, denotato come:
@@ -175,7 +176,7 @@ La relazione di congruenza gode delle seguenti proprietà:
     \item \textbf{Simmetria}: Se $a \equiv b \pmod{n}$, allora $b \equiv a \pmod{n}$.
     \item \textbf{Transitività}: Se $a \equiv b \pmod{n}$ e $b \equiv c \pmod{n}$, allora $a \equiv c \pmod{n}$.
 \end{enumerate}
-\newpage
+
 \section{Operazioni Aritmetiche Modulari}
 Le operazioni aritmetiche fondamentali (addizione, sottrazione, moltiplicazione ed esponenziazione) possono essere definite sull'insieme dei residui modulo $n$, denotato come $\mathbb{Z}_n$. Per $a, b \in \mathbb{Z}_n$:
 
@@ -193,7 +194,7 @@ Le operazioni aritmetiche fondamentali (addizione, sottrazione, moltiplicazione 
     $$a^b \bmod n = r \quad \text{dove } r \in \mathbb{Z}_n \text{ è il resto della divisione di } a^b \text{ per } n$$
 \end{enumerate}
 
-Queste operazioni godono delle stesse proprietà dell'aritmetica ordinaria, come la commutativà per l'addizione e la moltiplicazione, l'associatività, la presenza di elementi neutri (0 per l'addizione, 1 per la moltiplicazione) e di inversi (modulo $n$).
+Queste operazioni godono delle stesse proprietà dell'aritmetica ordinaria: commutativà per addizione e moltiplicazione, associatività, elementi neutri (0 per addizione, 1 per moltiplicazione) e inversi (modulo $n$).
 
 \section{Inverso Moltiplicativo Modulare}
 
@@ -204,14 +205,14 @@ un numero $a \in \mathbb{Z}_n$ è invertibile se esiste $b \in \mathbb{Z}_n$ tal
 \subsection*{Esistenza dell'Inverso Moltiplicativo}
 L'inverso moltiplicativo di $a$ modulo $n$ esiste se e solo se $a$ e $n$ sono coprimi, ovvero il loro massimo comune divisore $\mathbb{MCD}(a,n) = 1$. 
 
-\subsection*{Calcolo dell'Inverso Moltiplicativo}
-L'algoritmo euclideo esteso permette di calcolare efficacemente $a^{-1}$ modulo $n$.
-
-L'algoritmo euclideo esteso: dati due interi $a$ e $b$, trova il loro massimo comune divisore $\mathbb{MCD}(a,b)$ e gli interi $x$ e $y$ tali che $ax + by = \mathbb{MCD}(a,b)$.
+\subsection*{Calcolo dell'Inverso Moltiplicativo} \label{sec:inverso}
+L'inverso moltiplicativo di $a$ modulo $n$ si può calcolare efficacemente tramite l'algoritmo euclideo esteso e che sfrutta l'equazione di Bezout:
+\[ ax+ny=1 \]
+In cui $x$ è l'inverso moltiplicativo di $a$ modulo $n$.
 
 \section{Aritmetica Modulare sui Numeri Primi}
 
-Le proprietà dell'aritmetica modulare si semplificano notevolmente quando il modulo $m$ è un numero primo $p$. In questo caso, l'insieme $\mathbb{Z}_p$ è un \textbf{campo}, ovvero ogni elemento non nullo è invertibile.
+Le proprietà dell'aritmetica modulare si semplificano notevolmente quando il modulo $n$ è un numero primo $p$. In questo caso, l'insieme $\mathbb{Z}_p$ è un \textbf{campo}, ovvero ogni elemento non nullo è invertibile (\( |\mathbb{Z}_p| =|\mathbb{Z}_p^*| \)).
 
 \subsubsection*{Piccolo Teorema di Fermat}
 
@@ -290,14 +291,27 @@ Il cifrario RSA si basa su due principi fondamentali:
 La generazione delle chiavi nel cifrario RSA segue i seguenti passi:
 
 \begin{enumerate}
-    \item Scegliere due numeri primi distinti $p$ e $q$ di grandi dimensioni (tipicamente con almeno 512 bit ciascuno).
+    \item Scegliere due numeri primi distinti $p$ e $q$ di grandi dimensioni.
     \item Calcolare $n = p \cdot q$, dove $n$ è chiamato modulo. La dimensione di $n$ determina la sicurezza del sistema crittografico.
-    \item Calcolare $\phi(n) = (p - 1)(q - 1)$, dove $\phi$ è la funzione totiente di Eulero.
-    \item Scegliere un numero intero $e$ tale che $1 < e < \phi(n)$ e $\operatorname{MCD}(e, \phi(n)) = 1$. Il numero $e$ è chiamato esponente di cifratura. Tipicamente, si sceglie un valore piccolo per $e$, come $65537$, per rendere più efficienti le operazioni di cifratura.
-    \item Determinare $d$ tale che $d \cdot e \equiv 1 \pmod{\phi(n)}$. Il numero $d$ è chiamato esponente di decifratura. Esso può essere calcolato usando l'algoritmo di Euclide esteso.
+    \item Calcolare $\phi(n) = (p - 1)(q - 1)$, dove $\phi$ è la funzione totiente di Eulero, vedi \ref{sec:totiente}.
+    \item Scegliere un numero intero $e$ tale che $1 < e < \phi(n)$ e $\operatorname{MCD}(e, \phi(n)) = 1$. Il numero $e$ è chiamato esponente di cifratura. Tipicamente, si sceglie un valore piccolo per $e$, come $65537$ \footnote{Numero primo ha pochi bit impostati a 1, cosa che velocizza l'elaborazione}, per rendere più efficienti le operazioni di cifratura.
+    \item Determinare $d$ tale che $d \cdot e \equiv 1 \pmod{\phi(n)}$. Il numero $d$ è chiamato esponente di decifratura. Esso può essere calcolato usando l'algoritmo di Euclide esteso, come specificato in \ref{sec:inverso}.
 \end{enumerate}
 
 La coppia $(e, n)$ rappresenta la chiave pubblica, mentre $(d)$ è la chiave privata. La chiave pubblica può essere ampiamente diffusa, mentre la chiave privata deve essere mantenuta segreta.
+
+\subsection*{Determinazione dei numeri primi}
+La scelta dei due numeri primi $p$ e $q$ è cruciale per garantire la sicurezza del cifrario RSA. 
+Essi devono essere scelti in modo casuale e devono essere di dimensioni sufficientemente grandi per resistere a potenziali attacchi di forza bruta o di fattorizzazione.
+I passi per la generazione di un numero primo "forte":
+
+\begin{itemize}
+    \item{Scelta della \textbf{dimensione} (n°bit).}
+    \item{\textbf{Generazione Casuale} del numero.} 
+    \item{\textbf{Verifica della Primalità}: ci sono diversi Test per verificare che il numero generato sia effettivamente primo, come il Test di Miller-Rabin o il Test di Fermat. \cite{stein2008}}
+    \item{\textbf{Ripetizione}: Se il numero generato non è primo, si ripete il processo di generazione fino a ottenere un numero primo valido.}
+    \item{\textbf{Utilizzo di Numeri Primi Sicuri}: In alternativa, si possono utilizzare numeri primi sicuri predefiniti, noti come numeri primi di Sophie Germain o numeri primi di Safeprimes. \cite{boneh2005}}
+\end{itemize}
 
 \subsection*{Specifiche Attuali della Lunghezza delle Chiavi RSA}
 
@@ -310,8 +324,7 @@ Ecco le specifiche attuali per la lunghezza delle chiavi RSA:
     \item \textbf{4096 bit}: Utilizzata per esigenze di sicurezza molto elevate, anche se comporta operazioni più lente.
 \end{itemize}
 
-Per la sicurezza a lungo termine, si raccomanda generalmente di utilizzare chiavi di almeno 2048 bit. Per dati altamente sensibili, è consigliabile utilizzare chiavi da 3072 bit o 4096 bit. 
-Queste raccomandazioni sono in linea con le linee guida fornite da organizzazioni come il NIST (National Institute of Standards and Technology)\cite{nist} e da vari enti di standardizzazione della sicurezza informatica.
+Queste raccomandazioni sono in linea con le linee guida fornite da organizzazioni come il NIST (National Institute of Standards and Technology)\cite{nist}.
 
 \section{Cifratura e Decifratura}
 Sia $m$ il messaggio in chiaro, rappresentato come un numero intero nel range $[0, n - 1]$. Per trasformare il messaggio in un numero intero, si possono utilizzare varie tecniche di codifica, come la rappresentazione ASCII o Unicode dei caratteri.
@@ -326,7 +339,7 @@ La sicurezza del cifrario RSA risiede nella difficoltà computazionale di fattor
 \section{Applicazioni e Considerazioni sulla Sicurezza}
 Il cifrario RSA trova applicazione in numerosi contesti, come la crittografia dei dati, la firma digitale, lo scambio di chiavi e l'autenticazione. Esso è ampiamente utilizzato in diversi protocolli di sicurezza, come SSL/TLS, PGP e molti altri.
 
-Tuttavia, è importante sottolineare che la sicurezza del cifrario RSA dipende dalla difficoltà di fattorizzare grandi numeri interi composti. Con l'avanzamento della potenza di calcolo dei computer e lo sviluppo di nuovi algoritmi di fattorizzazione, potrebbe diventare necessario aumentare le dimensioni delle chiavi per mantenere un adeguato livello di sicurezza.
+Tuttavia, è importante sottolineare che la sicurezza del cifrario RSA basandosi sulla difficoltà di fattorizzare grandi numeri interi composti, con l'avanzamento della potenza di calcolo dei computer e lo sviluppo di nuovi algoritmi di fattorizzazione, potrebbe diventare necessario aumentare le dimensioni delle chiavi per mantenere un adeguato livello di sicurezza.
 
 Inoltre, esistono altre potenziali vulnerabilità legate all'implementazione del cifrario RSA, come la scelta di numeri primi deboli, la gestione non sicura delle chiavi private e la possibilità di attacchi side-channel. Pertanto, è fondamentale seguire le best practice di sicurezza e utilizzare implementazioni affidabili e constantemente aggiornate del cifrario RSA.
 
@@ -445,6 +458,124 @@ Queste ottimizzazioni sono fondamentali per rendere il cifrario RSA praticabile 
     \item RSA a chiave condivisa resistente ai rumori: utilizza una chiave condivisa tra le entità e tecniche di correzione degli errori per cifrare e decifrare i messaggi, semplificando la gestione delle chiavi e migliorando le prestazioni del sistema.
     \item RSA a chiave zero-knowledge resistente ai rumori: consente a un'entità di dimostrare la conoscenza di una chiave privata senza rivelarla e utilizza tecniche di correzione degli errori per garantire la sicurezza e la privacy dei dati.
 \end{itemize}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+\chapter{Il Problema del Logaritmo Discreto}
+
+\section{Introduzione}
+Il problema del logaritmo discreto è uno dei problemi fondamentali nella crittografia a chiave pubblica e nella teoria dei numeri. Esso costituisce la base di molti importanti algoritmi crittografici, come il crittosistema di Diffie-Hellman, il DSA (Digital Signature Algorithm) e i crittosistemi basati sulle curve ellittiche.
+
+\section{Fondamenti teoria dei gruppi}
+
+Un gruppo ciclico finito è un concetto fondamentale in algebra astratta e teoria dei gruppi. Ecco una spiegazione dettagliata:
+
+\subsection*{Gruppo}
+
+Un gruppo \( (G, \cdot) \) è un insieme \( G \) di elementi insieme a un'operazione binaria \( \cdot \) che soddisfa le seguenti proprietà:
+
+\begin{enumerate}
+    \item \textbf{Chiusura}: Se \( a \) e \( b \) sono elementi di \( G \), allora anche \( a \cdot b \) è un elemento di \( G \). Formalmente:
+    \[
+    \forall a, b \in G, \, a \cdot b \in G.
+    \]
+    \item \textbf{Associatività}: Per ogni \( a, b, c \) in \( G \),
+    \[
+    (a \cdot b) \cdot c = a \cdot (b \cdot c).
+    \]
+    \item \textbf{Elemento neutro}: Esiste un elemento \( e \) in \( G \) tale che per ogni \( a \) in \( G \),
+    \[
+    e \cdot a = a \cdot e = a.
+    \]
+    \item \textbf{Elemento inverso}: Per ogni \( a \) in \( G \), esiste un \( b \) in \( G \) tale che
+    \[
+    a \cdot b = b \cdot a = e.
+    \]
+\end{enumerate}
+
+\subsection*{Gruppo Ciclico}
+
+Un gruppo ciclico è un gruppo \( (G, \cdot) \) generato da un singolo elemento \( g \). Ogni elemento del gruppo può essere scritto come una potenza (o multiplo) di \( g \). Formalmente, un gruppo \( G \) è ciclico se esiste \( g \in G \) tale che
+\[G = \langle g \rangle = \{ g^k \mid k \in \mathbb{Z} \}.\]
+
+\subsection*{Gruppo Ciclico Finito}
+
+Un gruppo ciclico finito è un gruppo ciclico \( (G, \cdot) \) con un numero finito di elementi. Se \( G \) è generato da \( g \), allora esiste un intero positivo \( n \) tale che gli elementi di \( G \) sono
+\[\{e, g, g^2, g^3, \ldots, g^{n-1}\},\]
+dove \( e \) è l'elemento neutro e \( g^n = e \). La cardinalità (o ordine) del gruppo ciclico finito è \( n \).
+
+%
+%
+%
+%
+\section{Definizione Formale}
+Sia $G$ un gruppo ciclico finito di ordine $n$, con generatore $g$. Per ogni elemento $h \in G$, esiste un unico intero $x$, con $0 \leq x < n$, tale che:
+
+\[
+h = g^x
+\]
+
+L'intero $x$ è chiamato logaritmo discreto di $h$ rispetto alla base $g$ nel gruppo $G$, e si indica con:
+
+\[
+x = \log_g h
+\]
+
+Il problema del logaritmo discreto consiste nel calcolare $x$ dati $g$, $h$ e $G$. In altre parole, dato un elemento $h$ del gruppo e la base $g$, si cerca di trovare l'esponente segreto $x$ tale che $g^x = h$.
+
+\section{Proprietà e Applicazioni}
+Il problema del logaritmo discreto gode di alcune importanti proprietà che lo rendono fondamentale nella crittografia:
+
+\begin{itemize}
+    \item Calcolare $g^x$ dato $g$ e $x$ è un'operazione relativamente semplice da eseguire in modo efficiente.
+    \item Al contrario, calcolare $x$ dati $g$ e $g^x$ è un problema computazionalmente difficile per gruppi sufficientemente grandi.
+    \item La difficoltà del problema dipende dalla dimensione del gruppo e dalla scelta del generatore $g$.
+\end{itemize}
+
+Queste proprietà consentono di costruire algoritmi crittografici a chiave pubblica basati sul problema del logaritmo discreto. Alcuni esempi importanti includono:
+
+\begin{itemize}
+    \item Crittosistema di Diffie-Hellman: permette a due parti di stabilire una chiave segreta condivisa su un canale non sicuro.
+    \item Digital Signature Algorithm (DSA): uno standard per la firma digitale di documenti elettronici.
+    \item Crittografia a curva ellittica (ECC): un approccio crittografico basato sulla teoria delle curve ellittiche.
+\end{itemize}
+
+\section{Algoritmi di Calcolo del Logaritmo Discreto}
+Nonostante la difficoltà intrinseca del problema del logaritmo discreto, sono stati sviluppati diversi algoritmi per tentare di risolverlo in modo efficiente. Alcuni dei più noti includono:
+
+\begin{itemize}
+    \item Ricerca esaustiva: prova tutte le possibili soluzioni fino a trovare quella corretta. Fattibile solo per gruppi di piccole dimensioni.
+    \item Algoritmo baby-step giant-step: una tecnica più efficiente che riduce la complessità da esponenziale a radice quadrata.
+    \item Algoritmo di calcolo degli indici: sfrutta le relazioni di congruenza tra gli elementi del gruppo per ridurre il problema a un sistema di equazioni lineari.
+    \item Algoritmo rho di Pollard: un algoritmo generico basato sulla teoria delle code di code cicliche.
+\end{itemize}
+
+Tuttavia, per gruppi sufficientemente grandi, questi algoritmi non sono in grado di risolvere il problema del logaritmo discreto in tempi ragionevoli. Questa proprietà è fondamentale per garantire la sicurezza dei sistemi crittografici basati su tale problema.
+
+\section{Considerazioni sulla Sicurezza}
+La sicurezza dei sistemi crittografici basati sul problema del logaritmo discreto dipende dalla scelta di parametri appropriati, come la dimensione del gruppo e il generatore. Generalmente, si raccomanda di utilizzare gruppi di ordine primo di almeno 2048 bit per garantire un livello di sicurezza adeguato.
+
+Inoltre, è importante considerare potenziali vulnerabilità legate all'implementazione degli algoritmi crittografici, come la gestione delle chiavi segrete, la generazione di numeri casuali sicuri e la protezione contro attacchi side-channel.
+
+Infine, con l'avanzamento della potenza di calcolo dei computer e lo sviluppo di nuovi algoritmi di calcolo del logaritmo discreto, potrebbe essere necessario aumentare le dimensioni dei parametri crittografici per mantenere un adeguato livello di sicurezza nel lungo periodo.
+
+
+
+
 
 \chapter{Altro}
 
