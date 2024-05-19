@@ -1,9 +1,10 @@
 @misc{nist,
-  author = {{National Institute of Standards and Technology}},
+  author = {National Institute of Standards and Technology},
   title = {NIST Computer Security Resource Center},
   year = {2024},
   url = {https://csrc.nist.gov/},
-  note = {Precisamente: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf}
+  note = {Precisamente: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf},
+  annote = {Standard come n°bit chiave RSA}
 }
 
 @book{boneh2005,
@@ -15,6 +16,7 @@
   publisher = {CryptoText Security},
   address = {Stanford, CA},
   note = {Disponibile al link \url{http://crypto.stanford.edu/~dabo/cryptobook/}, part: 2: Public-Key Cryptography, pages: 393--616},
+  annote = {RSA}
 }
 
 @book{stein2008,
@@ -23,7 +25,8 @@
   year = {2008},
   publisher = {Springer},
   address = {New York, NY},
-  note = {Disponibile al link \url{https://wstein.org/ent/}}
+  note = {Disponibile al link \url{https://wstein.org/ent/}},
+  annote = {Per la parte matematica: teoria dei numeri e algebra modulare, immagine Logaritmi}
 }
 
 @book{stallings2011cryptography,
@@ -32,90 +35,64 @@
   year={2011},
   publisher={Prentice Hall},
   edition={5th},
-  isbn={9780136097044}
+  isbn={9780136097044},
+  annote={Firma Digitale, immagine e funzioni Hash}
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-@book{asymmetricCrypto,
-  title = {Asymmetric Cryptography from Number Theoretic Transformations},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
+@book{bellare2005introduction,
+  title={Introduction to Modern Cryptography},
+  author={Bellare, Mihir and Rogaway, Phillip},
+  year={2005},
+  publisher={University of California},
+  url={https://web.cs.ucdavis.edu/~rogaway/classes/227/spring05/book/main.pdf},
+  annote={Per la teoria dei Gruppi}
 }
 
-@book{elementiCrittografia,
-  title = {Elementi di Crittografia},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
+@book{silverman2009elliptic,
+  title={Elliptic Curves: Number Theory and Cryptography},
+  author={Silverman, Joseph H},
+  year={2009},
+  publisher={Chapman and Hall/CRC},
+  edition={2nd},
+  isbn={9781420071467},
+  language={English},
+  url = {https://people.cs.nycu.edu.tw/~rjchen/ECC2012S/Elliptic%20Curves%20Number%20Theory%20And%20Cryptography%202n.pdf},
+  annote={Per approfondimenti su Logaritmo Discreto, Curve Ellittiche e Algoritmo baby-step giant-step}
 }
 
-@book{introNumberTheory2005,
-  title = {An Introduction to Number Theory},
-  author = {Autore},
-  year = {2005},
-  publisher = {Editore}
+@article{coron2011baby,
+  title={A New Baby-Step Giant-Step Algorithm and Some Applications to Cryptanalysis},
+  author={Coron, Jean S{\'e}bastien and Lefranc, David and Poupard, Guillaume},
+  journal={International Journal of Information Security},
+  year={2005},
+  publisher={Springer},
+  url={https://www.iacr.org/archive/ches2005/004.pdf},
+  annote={Per l'Algoritmo baby-step giant-step}
 }
 
-@book{introMathCrypto,
-  title = {An Introduction to Mathematical Cryptography},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
+@article{nickerson2020collision,
+  title={Collision detection and Pollard's rho algorithm for the discrete logarithm problem},
+  author={Nickerson, Dana},
+  year={2020},
+  journal={Honours Project},
+  organization={Carleton University, School of Mathematics and Statistics},
+  supervisor={Panario, Daniel},
+  annote={Per l'Algoritmo rho di Pollard}
 }
 
-@book{numberTheoryCrypto,
-  title = {Number Theory and Cryptography},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
-}
 
-@book{ellipticCurvesCrypto,
-  title = {Elliptic Curves: Number Theory and Cryptography},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
-}
 
-@book{mathCiphersRSA,
-  title = {The Mathematics of Ciphers: Number Theory and RSA Cryptography},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
-}
 
-@book{introModernCrypto,
-  title = {Introduction to Modern Cryptography},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
-}
 
-@book{handbookAppliedCrypto,
-  title = {Handbook of Applied Cryptography},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
-}
 
-@book{mathPostQuantumCrypto,
-  title = {The Mathematical Foundation of Post-Quantum Cryptography},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
-}
 
-@book{correlatedNoise,
-  title = {Correlated Noise Provably Beats Independent Noise for Differentially ...},
-  author = {Autore},
-  year = {Anno},
-  publisher = {Editore}
-}
 
-// Dati da ChatGPT :
 
-//////////////
+
+
+
+
+
 @book{stinson2006,
   author = {Stinson, Douglas R.},
   title = {Cryptography: Theory and Practice},
@@ -130,17 +107,6 @@
   year = {2018},
   publisher = {CRC Press},
   address = {Boca Raton, FL},
-}
-
-@article{goldwasser1978,
-  author = {Goldwasser, Shafi and Micali, Silvio},
-  title = {Probabilistic Encryption},
-  journal = {Journal of Computer and System Sciences},
-  volume = {22},
-  number = {3},
-  pages = {396--407},
-  year = {1978},
-  publisher = {Elsevier},
 }
 
 @book{hoffstein2008,
@@ -181,15 +147,6 @@
   year = {2009},
   publisher = {Springer},
   address = {New York, NY},
-}
-
-@article{shor1994,
-  author = {Shor, Peter W.},
-  title = {Algorithms for Quantum Computation: Discrete Logarithms and Factoring},
-  journal = {Proceedings 35th Annual Symposium on Foundations of Computer Science},
-  pages = {124--134},
-  year = {1994},
-  publisher = {IEEE},
 }
 
 @book{trappe2006,
