@@ -512,6 +512,11 @@ Un gruppo ciclico finito è un gruppo ciclico \( (G, \cdot) \) con un numero fin
 \[\{e, g, g^2, g^3, \ldots, g^{n-1}\},\]
 dove \( e \) è l'elemento neutro e \( g^n = e \). La cardinalità (o ordine) del gruppo ciclico finito è \( n \).
 
+\subsection*{Gruppo abeliano}
+Un gruppo abeliano è un gruppo \( (G, \cdot) \) che soddisfa anche la 
+\subsubsection*{Commutatività (Proprietà di Abel):} \[ \forall a, b \in  G, \quad a + b = b + a \].
+
+
 \section{Definizione Formale}
 Sia $G$ un gruppo ciclico finito di ordine $n$, con generatore $g$. Per ogni elemento $h \in G$, esiste un unico intero $x$, con $0 \leq x < n$, tale che:
 \[h = g^x\]
@@ -607,6 +612,39 @@ Inoltre, l'implementazione pratica dell'algoritmo Diffie-Hellman richiede una ge
 %
 %
 %
+\chapter{Curve Ellittiche}
+Le curve ellittiche sono insiemi di punti $(x, y)$ che soddisfano un'equazione di forma cubica: $y^2 = x^3 + ax + b$, dove $a$ e $b$ sono costanti. Le curve ellittiche hanno molte applicazioni in crittografia grazie alla loro proprietà di essere non solo additive ma anche moltiplicative.
+
+\section{Prerequisiti}
+\textbf{Definizione:} Un campo \( (F, +, \cdot) \) è un insieme non vuoto \( F \) con due operazioni binarie \( + \) e \( \cdot \) che soddisfano le seguenti proprietà:
+\begin{enumerate}
+    \item \( (F, +) \) è un gruppo abeliano con elemento neutro \( 0 \).
+    \item \( (F \setminus \{0\}, \cdot) \) è un gruppo abeliano con elemento neutro \( 1 \).
+    \item La moltiplicazione è distributiva rispetto all'addizione.
+\end{enumerate}
+
+Ad esempio, se \( p \) è un numero primo, allora \( \mathbb{Z}_p\) è un campo.
+
+\section{Definizione}
+
+Una curva ellittica su un campo $K$ è l'insieme dei punti $(x, y)$ che soddisfano l'equazione:
+
+\[y^2 = x^3 + ax + b\]
+
+dove $a, b \in K$ e $4a^3 + 27b^2 \neq 0$. Il punto all'infinito $\mathcal{O}$ è incluso nella curva ellittica.
+
+\section{Operazioni su Curve Ellittiche}
+
+Le curve ellittiche supportano operazioni di somma e moltiplicazione tra punti. L'operazione di somma tra due punti $P$ e $Q$ su una curva ellittica restituisce un terzo punto $R$ che giace sulla stessa curva. L'operazione di moltiplicazione tra un punto $P$ e uno scalare $k$ restituisce un punto $Q$ che è la somma di $P$ con se stesso $k$ volte.
+
+\section{Crittoanalisi delle Curve Ellittiche}
+
+Le curve ellittiche sono utilizzate in crittografia per la loro resistenza a diverse tecniche di crittoanalisi, come l'attacco brute-force e l'attacco conosciuto come "baby-step giant-step". Tuttavia, la sicurezza delle curve ellittiche dipende dalla scelta dei parametri e dalla corretta implementazione degli algoritmi crittografici.
+
+\section{Applicazioni delle Curve Ellittiche}
+
+Le curve ellittiche sono utilizzate in diversi protocolli crittografici, come il Diffie-Hellman ellittico (ECDH) per lo scambio di chiavi segrete, l'algoritmo di firma digitale ellittica (ECDSA) per la firma digitale e il crittosistema di ElGamal ellittico per la crittografia a chiave pubblica. Le curve ellittiche sono anche utilizzate in applicazioni come la crittografia di dispositivi mobili e la sicurezza delle transazioni finanziarie.
+
 %
 %
 %
@@ -726,28 +764,6 @@ Queste sono solo alcune delle modalità d'utilizzo della firma digitale, che tro
 %
 %
 %
-\chapter{Curve Ellittiche}
-Le curve ellittiche sono insiemi di punti $(x, y)$ che soddisfano un'equazione di forma cubica: $y^2 = x^3 + ax + b$, dove $a$ e $b$ sono costanti. Le curve ellittiche hanno molte applicazioni in crittografia grazie alla loro proprietà di essere non solo additive ma anche moltiplicative.
-
-\section{Definizione}
-
-Una curva ellittica su un campo $K$ è l'insieme dei punti $(x, y)$ che soddisfano l'equazione:
-
-\[y^2 = x^3 + ax + b\]
-
-dove $a, b \in K$ e $4a^3 + 27b^2 \neq 0$. Il punto all'infinito $\mathcal{O}$ è incluso nella curva ellittica.
-
-\section{Operazioni su Curve Ellittiche}
-
-Le curve ellittiche supportano operazioni di somma e moltiplicazione tra punti. L'operazione di somma tra due punti $P$ e $Q$ su una curva ellittica restituisce un terzo punto $R$ che giace sulla stessa curva. L'operazione di moltiplicazione tra un punto $P$ e uno scalare $k$ restituisce un punto $Q$ che è la somma di $P$ con se stesso $k$ volte.
-
-\section{Crittoanalisi delle Curve Ellittiche}
-
-Le curve ellittiche sono utilizzate in crittografia per la loro resistenza a diverse tecniche di crittoanalisi, come l'attacco brute-force e l'attacco conosciuto come "baby-step giant-step". Tuttavia, la sicurezza delle curve ellittiche dipende dalla scelta dei parametri e dalla corretta implementazione degli algoritmi crittografici.
-
-\section{Applicazioni delle Curve Ellittiche}
-
-Le curve ellittiche sono utilizzate in diversi protocolli crittografici, come il Diffie-Hellman ellittico (ECDH) per lo scambio di chiavi segrete, l'algoritmo di firma digitale ellittica (ECDSA) per la firma digitale e il crittosistema di ElGamal ellittico per la crittografia a chiave pubblica. Le curve ellittiche sono anche utilizzate in applicazioni come la crittografia di dispositivi mobili e la sicurezza delle transazioni finanziarie.
 
 \nocite{*}
 \bibliographystyle{plain}
