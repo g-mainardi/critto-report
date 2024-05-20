@@ -14,7 +14,7 @@
 
 \usepackage[italian]{cleveref}
 
-%\linespread{0.9} % Imposta l'interlinea di x volte la dimensione del carattere
+\linespread{0.97} % Imposta l'interlinea di x volte la dimensione del carattere
 
 \title{Teoria dei numeri \\ applicata alla Crittografia}
 
@@ -81,9 +81,7 @@ e ha quasi 25 milioni di cifre.
 La fattorizzazione è il processo di scomposizione di un numero intero \( n \) in un prodotto di numeri primi. 
 
 \textbf{Formalmente}: dato un numero intero \( n \), la fattorizzazione di \( n \) è data dalla rappresentazione: 
-
 \[ n = p_1^{e_1} \cdot p_2^{e_2} \cdot \ldots \cdot p_k^{e_k} \]
-
 dove \( p_1, p_2, \ldots, p_k \) sono numeri primi distinti e \( e_1, e_2, \ldots, e_k \) sono esponenti positivi.
 
 \subsection*{Divisibilità e criteri di divisibilità}
@@ -94,11 +92,6 @@ Un numero \(a\) è divisibile per un numero \(b\) se il resto della divisione di
 Il massimo comune divisore di due numeri interi \( a \) e \( b \), denotato come 
 \[ \mathbb{MCD}(a, b) \] 
 ed è il più grande numero intero che divide entrambi \( a \) e \( b \) senza lasciare resto.
-
-\subsection*{Minimo comune multiplo (mcm)}
-Il minimo comune multiplo di due numeri interi \( a \) e \( b \), denotato come 
-\[ \mathrm{mcm}(a, b) \]
-ed è il più piccolo multiplo comune di \( a \) e \( b \).
 
 \subsection*{Numeri coprimi}
 Due numeri interi sono definiti come \textbf{coprimi} (o primi tra loro) se il loro massimo comune divisore (MCD) è uguale a 1. 
@@ -114,9 +107,7 @@ L'aritmetica modulare è un ramo fondamentale della teoria dei numeri che studia
 \subsection*{Operatore modulo} Dato un numero intero $a$ e un modulo $n$, numero intero positivo, il "resto della divisione di $a$ per $n$" è il valore che rimane quando $a$ è diviso per $n$. Questo valore è sempre compreso tra 0 e $n-1$, inclusi.
 
 Simbolicamente, possiamo esprimere il resto della divisione di $a$ per $n$ come:
-
 \[ a \mod n \]
-
 dove "mod" è l'operatore modulo.
 
 \subsection*{Insieme modulo \( \mathbb{Z}_n\)}
@@ -200,7 +191,7 @@ In tal caso, le soluzioni sono nella forma:
 \[x = x_0 + \frac{b}{d}t, \quad y = y_0 - \frac{a}{d}t\]
 dove $(x_0, y_0)$ è una particolare soluzione dell'equazione e $t$ è un parametro intero.
 
-\subsection*{Algoritmo di Euclide Esteso}
+\subsection*{Algoritmo di Euclide Esteso} \label{sec:inverso}   
 Le equazioni diofantee sono necessarie per l'algoritmo di Euclide esteso, utilizzato per trovare l'inverso moltiplicativo modulo $n$.
 
 L'algoritmo di Euclide esteso permette di risolvere l'equazione diofantea $ax + by = \mathbb{MCD}(a, b)$ e, di conseguenza, di trovare l'inverso moltiplicativo di $a$ modulo $n$. Se $a$ e $n$ sono coprimi ($\mathbb{MCD}(a, n) = 1$), esistono interi $x$ e $y$ tali che:
@@ -212,8 +203,8 @@ In questo caso, $x$ è l'inverso moltiplicativo di $a$ modulo $n$, ossia:
 
 Le proprietà dell'aritmetica modulare si semplificano notevolmente quando il modulo $n$ è un numero primo $p$. In questo caso, l'insieme $\mathbb{Z}_p$ è un \textbf{campo}, ovvero ogni elemento non nullo è invertibile (\( |\mathbb{Z}_p| =|\mathbb{Z}_p^*| \)).
 
-\subsubsection*{Piccolo Teorema di Fermat}
-Espressione generale:
+\subsubsection*{Piccolo Teorema di Fermat} \label{sec:fermat}
+Espressione generale, dato $p$ primo e $a$ intero::
 $$a^p \equiv a \pmod{p} \quad \forall a \in \mathbb{Z}$$
 
 Questo teorema viene utilizzato anche come Test di Primalità di un numero, è spesso espresso in un'altra forma equivalente, con \(a\) che è un intero coprimo con \(p\):
@@ -311,20 +302,29 @@ La generazione delle chiavi nel cifrario RSA segue i seguenti passi:
 
 La coppia $(e, n)$ rappresenta la chiave pubblica, mentre $(d)$ è la chiave privata. La chiave pubblica può essere ampiamente diffusa, mentre la chiave privata deve essere mantenuta segreta.
 
-\subsection*{Determinazione dei numeri primi}
-La scelta dei due numeri primi $p$ e $q$ è cruciale per garantire la sicurezza del cifrario RSA. 
-Essi devono essere scelti in modo casuale e devono essere di dimensioni sufficientemente grandi per resistere a potenziali attacchi di forza bruta o di fattorizzazione.
-I passi per la generazione di un numero primo "forte":
+\subsection*{Scelta di Numeri Primi Robusti}
+La sicurezza del cifrario RSA dipende in modo cruciale dalla difficoltà di fattorizzare il modulo $n$, che è il prodotto dei due numeri primi $p$ e $q$. Pertanto, è fondamentale scegliere numeri primi ``robusti'' o ``forti'' per $p$ e $q$, in modo da resistere agli attacchi di fattorizzazione.
+
+Un numero primo è considerato ``robusto'' se soddisfa determinate proprietà che lo rendono più resistente agli attacchi di fattorizzazione. Alcune di queste proprietà includono:
 
 \begin{itemize}
-    \item{Scelta della \textbf{dimensione} (n°bit).}
-    \item{\textbf{Generazione Casuale} del numero.} 
-    \item{\textbf{Verifica della Primalità}: ci sono diversi Test per verificare che il numero generato sia effettivamente primo, vedi Test di Fermat in \ref{sec:fermat}.}
-    \item{\textbf{Ripetizione}: Se il numero generato non è primo, si ripete il processo di generazione fino a ottenere un numero primo valido.}
-    \item{\textbf{Utilizzo di Numeri Primi Sicuri}: ad esempio, sono considerati "safeprimes" i numeri primi di Sophie Germain: dato $p$ primo, è considerato safe se anche \(2p+1\) è primo. \cite{boneh2005}}
+    \item \textbf{Dimensione adeguata}: I numeri primi $p$ e $q$ devono avere dimensioni sufficientemente grandi, successivamente si approfondisce.
+    \item \textbf{Struttura specifica}: Alcune forme speciali di numeri primi, come i numeri primi di Sophie Germain, sono considerate più resistenti agli attacchi di fattorizzazione.
+    \item \textbf{Test di primalità avanzati}: Per verificare l'effettiva primalità di $p$ e $q$, è necessario utilizzare test di primalità avanzati, che sono più robusti rispetto al semplice test di primalità di Fermat, vedi \ref{sec:fermat}.
 \end{itemize}
 
-\subsection*{Specifiche Attuali della Lunghezza delle Chiavi RSA}
+Tra i test di primalità avanzati più utilizzati, possiamo menzionare:
+
+\begin{enumerate}
+    \item \textbf{Test di Miller-Rabin}: Questo test probabilistico è in grado di determinare se un numero è composto con un alto grado di precisione. Esegue una serie di test basati sul Piccolo Teorema di Fermat e sul fatto che, se $n$ è composto, esistono sempre radici non banali dell'unità modulo $n$.
+    \item \textbf{Test di Solovay-Strassen}: Anche questo è un test probabilistico che sfrutta il fatto che, se $n$ è composto, esistono sempre radici non banali dell'unità modulo $n$. Il test di Solovay-Strassen è più efficiente del test di Miller-Rabin per numeri molto grandi.
+\end{enumerate}
+
+Entrambi questi test possono essere eseguiti più volte per aumentare la probabilità di rilevare correttamente se un numero è primo o composto. Inoltre, possono essere combinati con altri criteri, come la verifica delle proprietà dei numeri primi sicuri o di Sophie Germain, per ottenere numeri primi ancora più robusti.
+
+È importante sottolineare che, nonostante l'utilizzo di numeri primi robusti e test di primalità avanzati, la sicurezza del cifrario RSA dipende anche da altri fattori, come la gestione sicura delle chiavi e la corretta implementazione dell'algoritmo.
+
+\subsection*{Specifiche Attuali dimensioni Chiavi RSA}
 
 Ecco le specifiche attuali per la lunghezza delle chiavi RSA:
 
@@ -754,7 +754,7 @@ Queste sono solo alcune delle modalità d'utilizzo della firma digitale, che tro
 %
 
 \chapter{Firma Digitale Ellittica (ECDSA)}
-L'Algoritmo di Firma Digitale Ellittica (ECDSA) è uno schema di firma digitale basato sulle curve ellittiche. Esso consente di garantire l'autenticità, l'integrità e la non-ripudiabilità dei dati digitali attraverso l'utilizzo di tecniche crittografiche a chiave pubblica.
+La Firma Digitale Ellittica è uno schema di firma digitale basato sulle curve ellittiche. Consente di garantire autenticità, integrità e non-ripudiabilità dei dati digitali attraverso l'utilizzo di tecniche a chiave pubblica.
 
 \section{Generazione delle Chiavi}
 Nel sistema ECDSA, ogni utente ha una coppia di chiavi: una chiave privata $d$ e una corrispondente chiave pubblica $Q$, calcolate come segue:
@@ -765,21 +765,26 @@ Nel sistema ECDSA, ogni utente ha una coppia di chiavi: una chiave privata $d$ e
     \item Calcolare la chiave pubblica $Q = dG$.
 \end{enumerate}
 
-La chiave privata $d$ deve essere mantenuta segreta, mentre la chiave pubblica $Q$ può essere diffusa pubblicamente.
+La chiave privata è $(d)$ , mentre la chiave pubblica $Q$.
 
 \section{Generazione della Firma Digitale}
+
 Per firmare un messaggio $m$, il mittente segue questi passi:
 
 \begin{enumerate}
-    \item Scegliere un valore casuale $k$ tale che \(\mathbb{MCD}(k,n)=1\).
-    \item Calcolare $r = (kG)_x \bmod n$, dove $(kG)_x$ è la coordinata $x$ del punto $kG$ sulla curva.
-    \item Calcolare $s = k^{-1}(H(m) + dr) \bmod n$, dove $H(m)$ è l'impronta digitale del messaggio $m$ ottenuta tramite una funzione di hash crittografica.
+    \item Scegliere un valore casuale $k$ tale che $\mathsf{MCD}(k, n) = 1$, dove $n$ è l'ordine del punto base $G$ sulla curva ellittica.
+    
+    \item Calcolare il punto $kG$ ottenuto moltiplicando il punto base $G$ per lo scalare $k$. Quindi, calcolare $r$ come la coordinata $x$ di questo punto $kG$:
+    \[r = (kG)_x \bmod n\]
+    Dove $(kG)_x$ indica la coordinata $x$ del punto $kG$ sulla curva ellittica.
+    
+    \item Calcolare $s = k^{-1}(H(m) + dr) \bmod n$, dove $H(m)$ è l'impronta digitale del messaggio $m$ ottenuta tramite una funzione di hash crittografica e $d$ è la chiave privata del mittente.
 \end{enumerate}
 
 La firma digitale del messaggio $m$ è la coppia $(r, s)$.
 
 \section{Verifica della Firma Digitale}
-Per verificare la firma digitale $(r, s)$ di un messaggio $m$, il destinatario segue questi passi:
+Per verificare la firma digitale $(r, s)$ di un messaggio $m$, il destinatario deve:
 
 \begin{enumerate}
     \item Calcolare $w = s^{-1} \bmod n$.
@@ -796,7 +801,7 @@ Inoltre, la funzione di hash crittografica utilizzata per calcolare l'impronta d
 \section{Applicazioni e Standard}
 L'ECDSA è stato adottato come standard per la firma digitale da parte di numerosi enti e organizzazioni, tra cui il NIST \cite{nist}. Usato per la firma di documenti elettronici, l'autenticazione dei messaggi di posta elettronica e le transazioni finanziarie elettroniche.
 
-Inoltre, l'ECDSA è stato incorporato in diversi protocolli crittografici e standard di sicurezza, come SSL/TLS, S/MIME e PGP.
+Inoltre, è stato incorporato in diversi protocolli crittografici e standard di sicurezza, come SSL/TLS, S/MIME e PGP.
 
 
 \nocite{*}
