@@ -14,7 +14,7 @@
 
 \usepackage[italian]{cleveref}
 
-\linespread{0.9} % Imposta l'interlinea di x volte la dimensione del carattere
+%\linespread{0.9} % Imposta l'interlinea di x volte la dimensione del carattere
 
 \title{Teoria dei numeri \\ applicata alla Crittografia}
 
@@ -35,14 +35,14 @@ che non si schiera e non ha applicazioni dirette, l'avvento dell'informatica ha 
 
 La teoria dei numeri, con lo studio delle proprietà dei numeri interi, dei \textbf{numeri primi} e delle loro interazioni, è diventata un pilastro portante per lo sviluppo di sistemi crittografici sicuri.
 
-La \textbf{fattorizzazione in numeri primi}, il \textbf{logaritmo discreto} e le \textbf{equazioni diofantee} sono solo alcuni dei concetti chiave della teoria dei numeri che trovano 
+La \textbf{fattorizzazione in numeri primi}, il \textbf{logaritmo discreto} e l' \textbf{algebra modulare} sono solo alcuni dei concetti chiave della teoria dei numeri che trovano 
 applicazione nella crittografia moderna. Algoritmi rivoluzionari come \emph{RSA} e \emph{Diffie-Hellman}, basilari per la crittografia a chiave pubblica, sfruttano questi principi 
-per garantire elevati livelli di sicurezza. La casualità è una caratteristica fondamentale in crittografia, eppure, come sottolineava \emph{Von Neumann}, 
-``Chiunque consideri metodi aritmetici per produrre cifre casuali è, ovviamente, in stato di peccato'', evidenziando l'impossibilità di ottenere vera casualità in aritmetica. 
-Tuttavia, la teoria dei numeri offre proprietà ideali per nascondere e proteggere informazioni, come la difficoltà nel risolvere alcuni problemi aritmetici nonostante la loro apparente semplicità.
+per garantire elevati livelli di sicurezza.  
 
-In questa relazione, esploreremo nel dettaglio il legame inscindibile tra crittografia e teoria dei numeri, analizzando le principali applicazioni di quest'ultima nella protezione dei dati digitali. 
-Verranno approfonditi concetti come la fattorizzazione, il logaritmo discreto e le equazioni diofantee, al fine di comprendere appieno il \textbf{ruolo cruciale} svolto dalla matematica nella \textbf{sicurezza informatica}.
+In matematica si trovano proprietà ideali per nascondere e proteggere informazioni, come la difficoltà nel risolvere alcuni problemi aritmetici nonostante la loro apparente semplicità.
+
+In questa relazione, si esplorerà nel dettaglio il legame inscindibile tra crittografia e teoria dei numeri, analizzando le principali applicazioni di quest'ultima nella protezione dei dati digitali. 
+Si approfondiranno concetti come la Firma Digitale e le Curve Ellittiche, al fine di comprendere appieno il \textbf{ruolo cruciale} svolto dalla matematica nella \textbf{sicurezza informatica}.
 %
 %
 %
@@ -188,10 +188,25 @@ un numero $a \in \mathbb{Z}_n$ è invertibile se esiste $b \in \mathbb{Z}_n$ tal
 \subsection*{Esistenza dell'Inverso Moltiplicativo}
 L'inverso moltiplicativo di $a$ modulo $n$ esiste se e solo se $a$ e $n$ sono coprimi, ovvero il loro massimo comune divisore $\mathbb{MCD}(a,n) = 1$. 
 
-\subsection*{Calcolo dell'Inverso Moltiplicativo} \label{sec:inverso}
-L'inverso moltiplicativo di $a$ modulo $n$ si può calcolare efficacemente tramite l'algoritmo euclideo esteso e che sfrutta l'equazione di Bezout:
-\[ ax+ny=1 \]
-In cui $x$ è l'inverso moltiplicativo di $a$ modulo $n$.
+\section{Equazioni Diofantee}
+Le equazioni diofantee sono equazioni polinomiali con due o più incognite che ammettono solo soluzioni intere. 
+Una delle forme più semplici e utili nella crittografia è l'equazione diofantea lineare:
+\[ax + by = c\]
+
+\subsection*{Soluzioni delle Equazioni Diofantee Lineari}
+Perché l'equazione $ax + by = c$ ammetta soluzioni intere, è necessario e sufficiente che $\mathbb{MCD}(a, b) = d$ divida $c$. 
+
+In tal caso, le soluzioni sono nella forma:
+\[x = x_0 + \frac{b}{d}t, \quad y = y_0 - \frac{a}{d}t\]
+dove $(x_0, y_0)$ è una particolare soluzione dell'equazione e $t$ è un parametro intero.
+
+\subsection*{Algoritmo di Euclide Esteso}
+Le equazioni diofantee sono necessarie per l'algoritmo di Euclide esteso, utilizzato per trovare l'inverso moltiplicativo modulo $n$.
+
+L'algoritmo di Euclide esteso permette di risolvere l'equazione diofantea $ax + by = \mathbb{MCD}(a, b)$ e, di conseguenza, di trovare l'inverso moltiplicativo di $a$ modulo $n$. Se $a$ e $n$ sono coprimi ($\mathbb{MCD}(a, n) = 1$), esistono interi $x$ e $y$ tali che:
+\[ax + ny = 1\]
+In questo caso, $x$ è l'inverso moltiplicativo di $a$ modulo $n$, ossia:
+\[a \cdot x \equiv 1 \pmod{n}\]
 
 \section{Aritmetica Modulare sui Numeri Primi}
 
@@ -201,9 +216,7 @@ Le proprietà dell'aritmetica modulare si semplificano notevolmente quando il mo
 Espressione generale:
 $$a^p \equiv a \pmod{p} \quad \forall a \in \mathbb{Z}$$
 
-Questo significa che elevare un numero $a$ alla potenza $p$ modulo $p$ dà come risultato $a$ stesso.
-
-È spesso espresso nella forma equivalente, con \(a\) che è un intero coprimo con \(p\):
+Questo teorema viene utilizzato anche come Test di Primalità di un numero, è spesso espresso in un'altra forma equivalente, con \(a\) che è un intero coprimo con \(p\):
 
 \[a^{p-1} \equiv 1 \pmod{p}\quad,\quad con\quad \mathbb{MCD}(a,p)=1\]
 
@@ -213,11 +226,7 @@ $$a^{\phi(n)} \equiv 1 \pmod{n} \quad \text{se } \mathbb{MCD}(a,n) = 1$$
 
 Dove $\phi(n)$ è la \textbf{funzione totiente di Eulero}, che conta il numero di interi positivi minori di $n$ e coprimi con $n$.
 
-\subsubsection*{Test di Primalità di Fermat} \label{sec:fermat}
-Se $p$ è un numero primo e $a$ è un intero tale che $1 < a < p$, allora
-\[a^{p-1} \equiv 1 \pmod{p}\]
-
-\subsection*{Teorema Cinese del Resto} \label{sec:cinese}
+\subsection*{Teorema Cinese del Resto (CRT)} \label{sec:cinese}
 Il teorema cinese del resto è un importante risultato della teoria dei numeri che permette di risolvere un sistema di congruenze simultanee. 
 
 Supponiamo di avere un sistema di congruenze lineari:
